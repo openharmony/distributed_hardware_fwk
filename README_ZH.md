@@ -65,7 +65,7 @@
 
 以分布式相机为例，某设备下线后，分布式硬件管理框架去使能下线设备的相机硬件，本地移除分布式相机驱动并通知到相机框架，此时下线设备的分布式相机不可用。
 
-### **涉及仓**
+## **涉及仓**
 ****
 **分步式硬件管理框架**  
 [distributed_hardware_fwk](https://gitee.com/openharmony/distributed_hardware_fwk)
