@@ -33,7 +33,7 @@ enum class Status : uint32_t {
     DEVICE_OFFLINE = 1,
 };
 
-constexpr int32_t INTERVAL_TIME_MS = 1;
+constexpr int32_t INTERVAL_TIME_MS = 100;
 constexpr uint16_t TEST_DEV_TYPE_PAD = 0x11;
 
 /* save networkId and uuid */
