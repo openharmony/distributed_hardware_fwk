@@ -56,16 +56,7 @@ public:
 
 void AccessManagerTest::SetUp() {}
 
-void AccessManagerTest::TearDown()
-{
-    // clear all the online devices
-    for (const auto &dev : TEST_DEVICES) {
-        DistributedHardwareManagerFactory::GetInstance().SendOffLineEvent(dev.first, dev.second, TEST_DEV_TYPE_PAD);
-    }
-
-    // clear DM register status
-    AccessManager::GetInstance()->UnInit();
-}
+void AccessManagerTest::TearDown() {}
 
 void AccessManagerTest::SetUpTestCase() {}
 
