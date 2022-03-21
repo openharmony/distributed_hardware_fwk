@@ -25,6 +25,6 @@ struct MockDevInfo {
     std::string uuid;
     std::string dhId;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

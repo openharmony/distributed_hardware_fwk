@@ -73,6 +73,6 @@ private:
     std::unordered_map<std::string, std::unordered_map<DHType, std::string>> sinkVersions_;
     std::mutex sinkVersionMutex_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

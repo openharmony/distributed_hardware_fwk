@@ -48,5 +48,5 @@ void MockOffLineTask::SetOffLineDevInfos(std::vector<MockDevInfo> offLineDevInfo
 {
     this->offLineDevInfos = offLineDevInfos;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

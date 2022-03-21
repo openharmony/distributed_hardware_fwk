@@ -35,6 +35,6 @@ private:
 
     std::vector<MockDevInfo> onLineDevInfos;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

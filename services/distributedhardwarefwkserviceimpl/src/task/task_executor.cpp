@@ -87,5 +87,5 @@ void TaskExecutor::TriggerTask()
         DHContext::GetInstance().GetEventBus()->PostTask(taskFunc, task->GetId());
     }
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

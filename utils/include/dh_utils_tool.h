@@ -39,6 +39,6 @@ DeviceInfo GetLocalDeviceInfo();
 
 /* Convert uuid to deviceId by sha256 encode */
 std::string GetDeviceIdByUUID(const std::string &uuid);
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

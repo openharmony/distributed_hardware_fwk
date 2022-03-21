@@ -31,6 +31,6 @@ private:
     void DoSyncInfo();
     void CreateEnableTask();
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

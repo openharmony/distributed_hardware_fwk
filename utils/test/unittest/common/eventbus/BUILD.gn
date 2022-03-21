@@ -19,6 +19,7 @@ config("module_private_config") {
   visibility = [ ":*" ]
   include_dirs = [
     "include",
+    "${common_path}/log/include",
     "${utils_path}/include",
     "${utils_path}/include/log",
     "${utils_path}/include/eventbus",

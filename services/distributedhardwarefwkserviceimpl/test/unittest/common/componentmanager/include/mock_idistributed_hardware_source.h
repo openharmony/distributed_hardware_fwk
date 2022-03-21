@@ -39,6 +39,6 @@ public:
         return 0;
     }
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

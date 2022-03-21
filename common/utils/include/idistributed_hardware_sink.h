@@ -34,6 +34,6 @@ public:
     virtual int32_t UnsubscribeLocalHardware(const std::string &dhId) = 0;
 };
 extern "C" __attribute__((visibility("default"))) IDistributedHardwareSink* GetSinkHardwareHandler();
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

@@ -39,6 +39,6 @@ className & className::GetInstance()                    \
     static className instance;                          \
     return instance;                                    \
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

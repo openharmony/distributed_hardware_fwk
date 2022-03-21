@@ -47,6 +47,6 @@ private:
 private:
     std::map<DHType, IHardwareHandler*> compToolFuncsMap_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

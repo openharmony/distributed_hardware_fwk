@@ -99,5 +99,5 @@ void OnLineTask::CreateEnableTask()
         TaskExecutor::GetInstance().PushTask(task);
     }
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -64,5 +64,5 @@ std::string GetAnonyInt32(const int32_t value)
     std::string tempString(tempBuffer);
     return tempString;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

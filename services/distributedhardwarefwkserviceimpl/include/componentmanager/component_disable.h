@@ -37,6 +37,6 @@ private:
     std::mutex mutex_;
     std::condition_variable conVar_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

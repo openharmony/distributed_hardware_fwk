@@ -219,5 +219,5 @@ HWTEST_F(AccessManagerTest, SendOffLineEvent_003, TestSize.Level0)
 
     for_each(threadVec.begin(), threadVec.end(), [](std::thread &t) { t.join(); });
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

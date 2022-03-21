@@ -32,5 +32,5 @@ int32_t MockEnableTask::RegisterHardware()
     std::this_thread::sleep_for(300ms);
     return DH_FWK_SUCCESS;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

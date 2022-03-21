@@ -46,5 +46,5 @@ bool CapabilityUtils::IsCapKeyMatchDeviceId(const std::string &key, const std::s
     std::string keyDevId = key.substr(0, separatorPos);
     return keyDevId.compare(deviceId) == 0;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

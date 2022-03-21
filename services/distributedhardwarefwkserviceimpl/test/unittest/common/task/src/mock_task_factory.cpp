@@ -60,5 +60,5 @@ std::shared_ptr<Task> MockTaskFactory::CreateTask(TaskType taskType, const std::
 
     return task;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

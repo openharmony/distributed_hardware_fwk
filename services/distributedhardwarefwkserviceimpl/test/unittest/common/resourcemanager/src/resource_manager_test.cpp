@@ -356,5 +356,5 @@ HWTEST_F(ResourceManagerTest, resource_manager_test_013, TestSize.Level0)
         DH_FWK_SUCCESS);
     EXPECT_EQ(capMap.size(), TEST_SIZE_10);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

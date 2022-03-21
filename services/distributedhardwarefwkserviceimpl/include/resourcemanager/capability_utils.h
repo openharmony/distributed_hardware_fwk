@@ -37,6 +37,6 @@ public:
     static std::string GetCapabilityKey(const std::string &deviceId, const std::string &dhId);
     static bool IsCapKeyMatchDeviceId(const std::string &key, const std::string &deviceId);
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

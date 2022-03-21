@@ -86,6 +86,6 @@ void ToJson(nlohmann::json &jsonObject, const CapabilityInfo &capability);
 void FromJson(const nlohmann::json &jsonObject, CapabilityInfo &capability);
 
 using CapabilityInfoMap = std::map<std::string, std::shared_ptr<CapabilityInfo>>;
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

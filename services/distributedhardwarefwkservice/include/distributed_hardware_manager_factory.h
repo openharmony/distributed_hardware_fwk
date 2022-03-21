@@ -43,6 +43,6 @@ private:
     IDistributedHardwareManager *distributedHardwareMgrPtr_ { nullptr };
     std::mutex mutex_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

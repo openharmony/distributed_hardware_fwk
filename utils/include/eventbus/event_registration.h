@@ -45,6 +45,6 @@ private:
     void * const handler;
     EventSender * const sender;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

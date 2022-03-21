@@ -151,5 +151,5 @@ void FromJson(const nlohmann::json &jsonObject, CapabilityInfo &capability)
         capability.SetDHAttrs(jsonObject.at(DH_ATTRS).get<std::string>());
     }
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

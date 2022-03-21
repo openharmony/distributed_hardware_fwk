@@ -60,6 +60,6 @@ private:
 
     std::mutex accessMutex_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

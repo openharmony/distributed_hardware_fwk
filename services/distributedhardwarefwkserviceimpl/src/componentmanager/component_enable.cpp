@@ -72,5 +72,5 @@ int32_t ComponentEnable::OnRegisterResult(const std::string &networkId, const st
     conVar_.notify_all();
     return status_;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

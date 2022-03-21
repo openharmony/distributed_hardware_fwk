@@ -39,7 +39,11 @@ AccessManager::~AccessManager()
 
 std::shared_ptr<AccessManager> AccessManager::GetInstance()
 {
-    static std::shared_ptr<AccessManager> instance(new AccessManager);
+    static std::shared_ptr<AccessManager> instance(new(std::nothrow) AccessManager);
+    if (instance == nullptr) {
+        DHLOGE("instance is nullptr, because applying memory fail!");
+        return nullptr;
+    }
     return instance;
 }
 
@@ -162,5 +166,5 @@ void AccessManager::SendTrustedDeviceOnline()
         DistributedHardwareManagerFactory::GetInstance().SendOnLineEvent(networkId, uuid, deviceInfo.deviceTypeId);
     }
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

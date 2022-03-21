@@ -115,5 +115,5 @@ DeviceInfo GetLocalDeviceInfo()
     devInfo.deviceType = info->deviceTypeId;
     return devInfo;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

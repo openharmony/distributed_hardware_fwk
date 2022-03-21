@@ -117,5 +117,5 @@ HWTEST_F(UtilsToolTest, utils_tool_test_004, TestSize.Level0)
     ASSERT_STRNE(std::to_string(i4).c_str(), GetAnonyInt32(i4).c_str());
     ASSERT_STRNE(std::to_string(i5).c_str(), GetAnonyInt32(i5).c_str());
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

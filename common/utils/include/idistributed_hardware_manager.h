@@ -25,7 +25,7 @@ namespace OHOS {
 namespace DistributedHardware {
 class IDistributedHardwareManager {
 public:
-    virtual ~IDistributedHardwareManager() {};
+    virtual ~IDistributedHardwareManager() {}
     virtual int32_t Initialize() = 0;
     virtual int32_t Release() = 0;
     virtual int32_t SendOnLineEvent(const std::string &networkId, const std::string &uuid,
@@ -35,6 +35,6 @@ public:
     virtual size_t GetOnLineCount() = 0;
     virtual int32_t GetComponentVersion(std::unordered_map<DHType, std::string> &versionMap) = 0;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

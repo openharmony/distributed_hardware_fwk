@@ -66,5 +66,5 @@ std::string DistributedHardwareStub::ToJson(const std::unordered_map<DHType, std
     }
     return jsonObj.dump();
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -29,6 +29,6 @@ public:
     int32_t Enable(int32_t timeout, int32_t status);
     int32_t Disable(int32_t timeout, int32_t status);
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

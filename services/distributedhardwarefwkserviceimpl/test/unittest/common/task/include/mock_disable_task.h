@@ -29,6 +29,6 @@ private:
     /* synchronous function for unregister distributed hardware, return on asynchronous unregister finish */
     int32_t UnRegisterHardware();
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

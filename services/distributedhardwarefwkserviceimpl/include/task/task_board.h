@@ -43,6 +43,6 @@ private:
     std::mutex tasksMtx_;
     std::unordered_map<std::string, std::shared_ptr<Task>> tasks_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

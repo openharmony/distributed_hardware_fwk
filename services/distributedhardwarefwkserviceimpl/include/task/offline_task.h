@@ -48,6 +48,6 @@ private:
     std::mutex unFinishTaskMtx_;
     std::set<std::string> unFinishChildrenTasks_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

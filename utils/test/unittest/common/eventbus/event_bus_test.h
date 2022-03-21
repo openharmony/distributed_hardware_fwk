@@ -98,6 +98,6 @@ public:
     void SetUp();
     void TearDown();
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

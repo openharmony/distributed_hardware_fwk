@@ -42,6 +42,6 @@ private:
     std::condition_variable condVar_;
     bool taskThreadFlag_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

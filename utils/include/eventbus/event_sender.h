@@ -22,6 +22,6 @@ class EventSender {
 public:
     virtual ~EventSender() = default;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

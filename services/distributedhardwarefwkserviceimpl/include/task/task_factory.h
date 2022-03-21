@@ -29,6 +29,6 @@ public:
     std::shared_ptr<Task> CreateTask(TaskType taskType, const std::string &networkId, const std::string &uuid,
         const std::string &dhId, std::shared_ptr<Task> fatherTask);
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

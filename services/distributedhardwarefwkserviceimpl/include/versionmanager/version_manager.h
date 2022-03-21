@@ -47,6 +47,6 @@ private:
     std::unordered_map<std::string, DHVersion> dhVersions_;
     std::mutex versionMutex_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

@@ -32,6 +32,6 @@ private:
     int32_t RegisterHardware();
     void DoTaskInner();
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

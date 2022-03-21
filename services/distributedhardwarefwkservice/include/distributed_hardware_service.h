@@ -47,6 +47,6 @@ private:
     bool registerToService_ = false;
     ServiceRunningState state_ = ServiceRunningState::STATE_NOT_START;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

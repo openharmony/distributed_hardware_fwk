@@ -35,6 +35,6 @@ public:
         QUERY_SINK_VERSION = 1
     };
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

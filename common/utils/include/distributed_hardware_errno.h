@@ -88,6 +88,6 @@ namespace DistributedHardware {
     constexpr int32_t ERR_DH_FWK_ACCESS_UNINIT_DM_FAILED = -10901;
     constexpr int32_t ERR_DH_FWK_ACCESS_REGISTER_DM_FAILED = -10902;
     constexpr int32_t ERR_DH_FWK_ACCESS_UNREGISTER_DM_FAILED = -10903;
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

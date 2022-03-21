@@ -65,6 +65,6 @@ private:
 
     TaskState taskState_ { TaskState::INIT };
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

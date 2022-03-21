@@ -34,6 +34,6 @@ public:
         OnEvent(e);
     }
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

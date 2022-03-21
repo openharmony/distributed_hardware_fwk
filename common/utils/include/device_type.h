@@ -44,6 +44,6 @@ struct DeviceInfo {
     explicit DeviceInfo(std::string uuid, std::string deviceId, std::string deviceName, uint16_t deviceType)
         : uuid(uuid), deviceId(deviceId), deviceName(deviceName), deviceType(deviceType) {}
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif
