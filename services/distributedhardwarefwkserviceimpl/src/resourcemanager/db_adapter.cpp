@@ -397,5 +397,5 @@ int32_t DBAdapter::RemoveDataByKey(const std::string &key)
     DHLOGD("Remove data by key success");
     return DH_FWK_SUCCESS;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

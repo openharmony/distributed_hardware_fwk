@@ -72,5 +72,5 @@ int32_t ComponentDisable::OnUnregisterResult(const std::string &networkId, const
     conVar_.notify_all();
     return status_;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

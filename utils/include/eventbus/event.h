@@ -32,7 +32,7 @@ class Event {
 TYPEINDENT(Event)
 
 public:
-    Event(EventSender &sender) : sender_(sender) {}
+    explicit Event(EventSender &sender) : sender_(sender) {}
 
     virtual ~Event() = default;
 
@@ -44,6 +44,6 @@ public:
 private:
     EventSender &sender_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

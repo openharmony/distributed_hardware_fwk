@@ -66,5 +66,5 @@ std::shared_ptr<Task> TaskFactory::CreateTask(TaskType taskType, const std::stri
 
     return task;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

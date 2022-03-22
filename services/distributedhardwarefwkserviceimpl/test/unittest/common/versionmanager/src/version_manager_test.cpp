@@ -154,5 +154,5 @@ HWTEST_F(VersionManagerTest, version_manager_test_005, TestSize.Level0)
     ret = VersionManager::GetInstance().RemoveDHVersion(TEST_DEVICE_ID_1);
     EXPECT_EQ(DH_FWK_SUCCESS, ret);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

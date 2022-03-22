@@ -39,6 +39,6 @@ private:
 
     static inline BrokerDelegator<DistributedHardwareProxy> delegator_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

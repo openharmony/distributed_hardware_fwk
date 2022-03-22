@@ -62,5 +62,5 @@ int32_t EnableTask::RegisterHardware()
         GetId().c_str(), GetAnonyString(GetUUID()).c_str(), GetDhId().c_str());
     return result;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -38,6 +38,6 @@ void DHLog(DHLogLevel logLevel, const char *fmt, ...);
 
 #define ULOGE(fmt, ...) DHLog(DH_LOG_ERROR, \
     (std::string("[") + DH_LOG_TAG + "][" + __FUNCTION__ + "]:" + fmt).c_str(), ##__VA_ARGS__)
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

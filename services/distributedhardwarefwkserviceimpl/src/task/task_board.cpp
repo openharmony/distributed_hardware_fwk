@@ -85,5 +85,5 @@ void TaskBoard::RemoveTaskInner(std::string taskId)
 
     tasks_.erase(taskId);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

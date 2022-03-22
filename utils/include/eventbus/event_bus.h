@@ -63,7 +63,11 @@ public:
         Registrations *registrations = handlers[typeId];
 
         if (registrations == nullptr) {
-            registrations = new EventRegistration::Registrations();
+            registrations = new(std::nothrow) EventRegistration::Registrations();
+            if (registrations == nullptr) {
+                ULOGE("registrations is null, because applying memory fail!");
+                return nullptr;
+            }
             handlers[typeId] = registrations;
         }
 
@@ -88,7 +92,11 @@ public:
         Registrations *registrations = handlers[typeId];
 
         if (registrations == nullptr) {
-            registrations = new EventRegistration::Registrations();
+            registrations = new(std::nothrow) EventRegistration::Registrations();
+            if (registrations == nullptr) {
+                ULOGE("registrations is null, because applying memory fail!");
+                return nullptr;
+            }
             handlers[typeId] = registrations;
         }
 
@@ -201,6 +209,6 @@ private:
     using TypeMap = std::unordered_map<std::string, std::set<std::shared_ptr<EventRegistration>> *>;
     TypeMap handlers;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

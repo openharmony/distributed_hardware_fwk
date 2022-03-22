@@ -33,5 +33,5 @@ int32_t MockDisableTask::UnRegisterHardware()
     std::this_thread::sleep_for(200ms);
     return DH_FWK_SUCCESS;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -100,5 +100,5 @@ void Task::SetFatherTask(std::shared_ptr<Task> fatherTask)
 {
     this->fatherTask_ = fatherTask;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+#include "distributed_hardware_log.h"
+
 #include "event_bus_test.h"
 
 using namespace testing::ext;
@@ -37,11 +39,27 @@ void EventbusTest::TearDownTestCase(void)
 
 void EventbusTest::SetUp()
 {
-    g_obj = new FakeObject("Player");
-    g_listener = new FakeListener();
-    g_sender = new FakeSender();
+    g_obj = new(std::nothrow) FakeObject("Player");
+    if (g_obj == nullptr) {
+        DHLOGE("obj is null, because applying memory fail!");
+        return;
+    }
+    g_listener = new(std::nothrow) FakeListener();
+    if (g_listener == nullptr) {
+        DHLOGE("listener is null, because applying memory fail!");
+        return;
+    }
+    g_sender = new(std::nothrow) FakeSender();
+    if (g_sender == nullptr) {
+        DHLOGE("sender is null, because applying memory fail!");
+        return;
+    }
     g_regHandler = nullptr;
-    g_eventBus = new EventBus();
+    g_eventBus = new(std::nothrow) EventBus();
+    if (g_eventBus == nullptr) {
+        DHLOGE("eventBus is null, because applying memory fail!");
+        return;
+    }
 }
 
 void EventbusTest::TearDown()
@@ -155,5 +173,5 @@ HWTEST_F(EventbusTest, event_bus_test_005, TestSize.Level0)
     g_eventBus->PostEvent<FakeEvent>(e, POSTMODE::POST_SYNC);
     EXPECT_EQ(10, g_obj->GetAge());
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

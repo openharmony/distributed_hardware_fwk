@@ -32,6 +32,6 @@ public:
     size_t GetOnLineCount() override;
     int32_t GetComponentVersion(std::unordered_map<DHType, std::string> &versionMap) override;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

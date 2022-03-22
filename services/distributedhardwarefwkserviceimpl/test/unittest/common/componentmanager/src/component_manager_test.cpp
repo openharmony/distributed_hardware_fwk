@@ -339,5 +339,5 @@ HWTEST_F(ComponentManagerTest, disable_test_004, TestSize.Level0)
     thread5.join();
     thread6.join();
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

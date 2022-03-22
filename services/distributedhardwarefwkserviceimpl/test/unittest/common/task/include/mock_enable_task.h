@@ -29,6 +29,6 @@ private:
     /* synchronous function for register distributed hardware, return on asynchronous register finish */
     int32_t RegisterHardware();
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

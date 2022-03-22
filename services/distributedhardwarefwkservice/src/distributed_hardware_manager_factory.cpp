@@ -181,5 +181,5 @@ int32_t DistributedHardwareManagerFactory::GetComponentVersion(std::unordered_ma
     }
     return distributedHardwareMgrPtr_->GetComponentVersion(versionMap);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

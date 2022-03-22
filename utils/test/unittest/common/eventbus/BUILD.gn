@@ -12,13 +12,16 @@
 # limitations under the License.
 
 import("//build/test.gni")
-import("//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+import(
+    "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+
 module_out_path = "distributed_hardware_fwk/event_bus_test"
 
 config("module_private_config") {
   visibility = [ ":*" ]
   include_dirs = [
     "include",
+    "${common_path}/log/include",
     "${utils_path}/include",
     "${utils_path}/include/log",
     "${utils_path}/include/eventbus",
@@ -35,13 +38,11 @@ ohos_unittest("EventBusTest") {
   configs = [ ":module_private_config" ]
 
   deps = [
+    "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils",
     "//third_party/googletest:gtest_main",
-    "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils"
   ]
 
-  external_deps = [
-    "eventhandler:libeventhandler",
-  ]
+  external_deps = [ "eventhandler:libeventhandler" ]
 }
 
 group("event_bus_test") {

@@ -84,6 +84,6 @@ private:
     std::mutex dbAdapterMutex_;
     std::unordered_map<std::string, int32_t> manualSyncCountMap_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

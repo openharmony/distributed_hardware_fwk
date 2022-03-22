@@ -50,5 +50,5 @@ void MockOnLineTask::SetOnLineDevInfos(std::vector<MockDevInfo> devInfos)
 {
     this->onLineDevInfos = devInfos;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

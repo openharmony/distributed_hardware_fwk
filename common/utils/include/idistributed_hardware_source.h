@@ -51,6 +51,6 @@ public:
         const std::string &value) = 0;
 };
 extern "C" __attribute__((visibility("default"))) IDistributedHardwareSource* GetSourceHardwareHandler();
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

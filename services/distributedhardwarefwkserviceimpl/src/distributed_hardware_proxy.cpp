@@ -73,5 +73,5 @@ std::unordered_map<DHType, std::string> DistributedHardwareProxy::FromJson(const
 {
     return nlohmann::json::parse(json).get<std::unordered_map<DHType, std::string>>();
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

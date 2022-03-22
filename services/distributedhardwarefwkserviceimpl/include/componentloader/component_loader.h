@@ -83,6 +83,6 @@ private:
     std::map<DHType, CompHandler> compHandlerMap_;
     std::atomic<bool> isLocalVersionInit_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

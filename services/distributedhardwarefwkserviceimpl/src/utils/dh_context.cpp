@@ -110,5 +110,5 @@ std::string DHContext::GetUUIDByDeviceId(const std::string &deviceId)
     }
     return deviceIdUUIDMap_[deviceId];
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -58,6 +58,6 @@ private:
     std::unordered_map<std::string, std::string> deviceIdUUIDMap_;
     std::shared_mutex onlineDevMutex_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

@@ -26,6 +26,7 @@ namespace OHOS {
 namespace DistributedHardware {
 class CapabilityInfoEvent : public Event {
     TYPEINDENT(CapabilityInfoEvent)
+
 public:
     enum class EventType : uint32_t {
         UNDEFINED = 0,
@@ -33,7 +34,7 @@ public:
     };
 
 public:
-    CapabilityInfoEvent(EventSender &sender) : Event(sender)
+    explicit CapabilityInfoEvent(EventSender &sender) : Event(sender)
     {
         action_ = EventType::UNDEFINED;
     }
@@ -50,6 +51,6 @@ public:
 private:
     EventType action_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

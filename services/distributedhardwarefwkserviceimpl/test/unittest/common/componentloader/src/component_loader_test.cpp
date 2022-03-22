@@ -148,5 +148,5 @@ HWTEST_F(ComponentLoaderTest, component_loader_test_007, TestSize.Level0)
         EXPECT_TRUE(ComponentLoader::GetInstance().compHandlerMap_[iter.first].sinkHandler == nullptr);
     }
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

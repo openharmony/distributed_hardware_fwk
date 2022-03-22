@@ -32,6 +32,6 @@ private:
     int32_t UnRegisterHardware();
     void DoTaskInner();
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

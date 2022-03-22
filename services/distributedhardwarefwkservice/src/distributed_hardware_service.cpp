@@ -82,5 +82,5 @@ int32_t DistributedHardwareService::QuerySinkVersion(std::unordered_map<DHType, 
     (void)versionMap;
     return 0;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

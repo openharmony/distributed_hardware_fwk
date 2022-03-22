@@ -104,6 +104,6 @@ private:
     std::shared_ptr<DBAdapter> dbAdapterPtr_;
     CapabilityInfoMap globalCapInfoMap_;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

@@ -318,5 +318,5 @@ bool ComponentLoader::IsDHTypeExist(DHType dhType)
     }
     return true;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

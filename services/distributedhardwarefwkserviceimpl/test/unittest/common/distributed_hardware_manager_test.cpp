@@ -168,5 +168,5 @@ HWTEST_F(DistributedHardwareManagerTest, sendOffLineEvent_test_003, TestSize.Lev
     ASSERT_EQ(DH_FWK_SUCCESS, TaskBoard::GetInstance().WaitForALLTaskFinish());
     ASSERT_TRUE(TaskBoard::GetInstance().IsAllTaskFinish());
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

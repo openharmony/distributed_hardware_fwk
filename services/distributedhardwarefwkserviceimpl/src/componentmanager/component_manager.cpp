@@ -384,5 +384,5 @@ sptr<IDistributedHardware> ComponentManager::GetRemoteDHMS(const std::string &ne
     }
     return iface_cast<IDistributedHardware>(object);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

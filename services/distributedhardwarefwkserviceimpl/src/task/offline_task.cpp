@@ -130,5 +130,5 @@ void OffLineTask::AddChildrenTask(std::shared_ptr<Task> childrenTask)
     std::lock_guard<std::mutex> lock(unFinishTaskMtx_);
     this->unFinishChildrenTasks_.insert(childrenTask->GetId());
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

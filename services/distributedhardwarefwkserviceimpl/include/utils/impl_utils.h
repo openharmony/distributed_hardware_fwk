@@ -60,6 +60,6 @@ struct DHVersion {
     std::string dhVersion;
     std::unordered_map<DHType, CompVersion> compVersions;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

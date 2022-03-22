@@ -97,5 +97,5 @@ void LocalHardwareManager::AddLocalCapabilityInfo(const std::vector<DHItem> &dhI
     }
     CapabilityInfoManager::GetInstance()->AddCapability(capabilityInfos);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

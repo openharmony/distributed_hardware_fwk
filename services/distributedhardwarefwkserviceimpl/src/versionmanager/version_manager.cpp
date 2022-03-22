@@ -112,5 +112,5 @@ std::string VersionManager::GetLocalDeviceVersion()
 {
     return DH_LOCAL_VERSION;
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

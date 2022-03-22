@@ -44,6 +44,6 @@ public:
     virtual void RegisterPluginListener(std::shared_ptr<PluginListener> listener) = 0;
 };
 extern "C" __attribute__((visibility("default"))) IHardwareHandler* GetHardwareHandler();
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
 #endif

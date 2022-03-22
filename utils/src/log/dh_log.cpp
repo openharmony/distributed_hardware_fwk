@@ -83,5 +83,5 @@ void DHLog(DHLogLevel logLevel, const char *fmt, ...)
     }
     DHLogOut(logLevel, logBuf);
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

@@ -26,5 +26,5 @@ public:
 private:
     std::string ToJson(const std::unordered_map<DHType, std::string> &versionMap) const;
 };
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS

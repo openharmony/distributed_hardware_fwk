@@ -154,5 +154,5 @@ HWTEST_F(TaskTest, task_test_004, TestSize.Level0)
     ASSERT_EQ(DH_FWK_SUCCESS, TaskBoard::GetInstance().WaitForALLTaskFinish());
     ASSERT_TRUE(TaskBoard::GetInstance().IsAllTaskFinish());
 }
-}
-}
+} // namespace DistributedHardware
+} // namespace OHOS
