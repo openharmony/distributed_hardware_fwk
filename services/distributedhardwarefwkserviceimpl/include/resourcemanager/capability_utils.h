@@ -23,7 +23,7 @@
 
 namespace OHOS {
 namespace DistributedHardware {
-enum CapabilityInfoFilter : uint32_t {
+enum class CapabilityInfoFilter : uint32_t {
     FILTER_DH_ID = 0,
     FILTER_DEVICE_ID = 1,
     FILTER_DEVICE_NAME = 2,
