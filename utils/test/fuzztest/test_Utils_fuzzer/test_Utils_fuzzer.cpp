@@ -15,8 +15,8 @@
 
 #include "test_Utils_fuzzer.h"
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include "anonymous_string.h"
 #include "dh_utils_tool.h"
