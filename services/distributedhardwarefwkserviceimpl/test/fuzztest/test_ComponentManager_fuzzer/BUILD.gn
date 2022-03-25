@@ -14,7 +14,8 @@
 #####################hydra-fuzz###################
 import("//build/config/features.gni")
 import("//build/test.gni")
-import("//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+import(
+    "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
 ohos_fuzztest("test_ComponentManager_fuzzer") {
@@ -30,14 +31,17 @@ ohos_fuzztest("test_ComponentManager_fuzzer") {
     "${common_path}/log/include",
     "//utils/native/base/include",
   ]
-  cflags = ["-g","-O0","-Wno-unused-variable","-fno-omit-frame-pointer"]
-  sources = [
-    "test_ComponentManager_fuzzer.cpp",
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
   ]
+  sources = [ "test_ComponentManager_fuzzer.cpp" ]
 
   deps = [
+    "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl:distributedhardwarefwksvr_impl",
     "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils",
-    "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl:distributedhardwarefwksvr_impl"
   ]
 
   defines = [
@@ -46,10 +50,9 @@ ohos_fuzztest("test_ComponentManager_fuzzer") {
     "LOG_DOMAIN=0xD004100",
   ]
 
-  external_deps = [
-    "ipc:ipc_core",
-  ]
+  external_deps = [ "ipc:ipc_core" ]
 }
+
 ###############################################################################
 group("fuzztest") {
   testonly = true

@@ -14,7 +14,8 @@
 #####################hydra-fuzz###################
 import("//build/config/features.gni")
 import("//build/test.gni")
-import("//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+import(
+    "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
 ohos_fuzztest("test_ResourceManager_fuzzer") {
@@ -32,17 +33,20 @@ ohos_fuzztest("test_ResourceManager_fuzzer") {
     "//utils/native/base/include",
     "//third_party/json/include",
     "//utils/native/base/include",
-    "//utils/system/safwk/native/include"
+    "//utils/system/safwk/native/include",
   ]
-  cflags = ["-g","-O0","-Wno-unused-variable","-fno-omit-frame-pointer"]
-  sources = [
-    "test_ResourceManager_fuzzer.cpp",
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
   ]
+  sources = [ "test_ResourceManager_fuzzer.cpp" ]
 
   deps = [
-    "//utils/native/base:utils",
+    "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl:distributedhardwarefwksvr_impl",
     "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils",
-    "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl:distributedhardwarefwksvr_impl"
+    "//utils/native/base:utils",
   ]
 
   defines = [
@@ -54,11 +58,12 @@ ohos_fuzztest("test_ResourceManager_fuzzer") {
   external_deps = [
     "bundle_framework:appexecfwk_base",
     "bundle_framework:appexecfwk_core",
+    "distributeddatamgr:distributeddata_inner",
     "eventhandler:libeventhandler",
     "hiviewdfx_hilog_native:libhilog",
-    "distributeddatamgr:distributeddata_inner"
   ]
 }
+
 ###############################################################################
 group("fuzztest") {
   testonly = true

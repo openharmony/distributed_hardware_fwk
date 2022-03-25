@@ -14,7 +14,8 @@
 #####################hydra-fuzz###################
 import("//build/config/features.gni")
 import("//build/test.gni")
-import("//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+import(
+    "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
 ohos_fuzztest("test_AccessManager_fuzzer") {
@@ -32,16 +33,19 @@ ohos_fuzztest("test_AccessManager_fuzzer") {
     "${services_path}/distributedhardwarefwkservice/include",
     "${services_path}/distributedhardwarefwkservice/include/accessmanager",
   ]
-  cflags = ["-g","-O0","-Wno-unused-variable","-fno-omit-frame-pointer"]
-  sources = [
-    "test_AccessManager_fuzzer.cpp",
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
   ]
+  sources = [ "test_AccessManager_fuzzer.cpp" ]
 
   deps = [
     "${utils_path}:distributedhardwareutils",
+    "//foundation/distributedhardware/devicemanager/interfaces/inner_kits/native_cpp:devicemanagersdk",
     "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkservice:distributedhardwarefwksvr",
     "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
-    "//foundation/distributedhardware/devicemanager/interfaces/inner_kits/native_cpp:devicemanagersdk",
   ]
 
   defines = [
@@ -59,11 +63,11 @@ ohos_fuzztest("test_AccessManager_fuzzer") {
     "startup_l2:syspara",
   ]
 }
+
 ###############################################################################
 group("fuzztest") {
   testonly = true
 
   deps = [ ":test_AccessManager_fuzzer" ]
-
 }
 ###############################################################################

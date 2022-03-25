@@ -14,7 +14,8 @@
 #####################hydra-fuzz###################
 import("//build/config/features.gni")
 import("//build/test.gni")
-import("//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+import(
+    "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
 ohos_fuzztest("test_Utils_fuzzer") {
@@ -26,18 +27,20 @@ ohos_fuzztest("test_Utils_fuzzer") {
     "${common_path}/utils/include",
     "//utils/native/base/include",
   ]
-  cflags = ["-g","-O0","-Wno-unused-variable","-fno-omit-frame-pointer"]
-  sources = [
-    "test_Utils_fuzzer.cpp",
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
   ]
+  sources = [ "test_Utils_fuzzer.cpp" ]
 
-  deps = [
-    "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils"
-  ]
+  deps = [ "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils" ]
 }
+
 ###############################################################################
 group("fuzztest") {
   testonly = true
-  deps = [ ":test_Utils_fuzzer", ]
+  deps = [ ":test_Utils_fuzzer" ]
 }
 ###############################################################################

@@ -16,6 +16,6 @@ group("fuzztest") {
 
   deps = [
     "test_ComponentManager_fuzzer:fuzztest",
-    "test_ResourceManager_fuzzer:fuzztest"
+    "test_ResourceManager_fuzzer:fuzztest",
   ]
 }
