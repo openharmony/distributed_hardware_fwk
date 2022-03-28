@@ -13,35 +13,34 @@
  * limitations under the License.
  */
 
-#include "test_AccessManager_fuzzer.h"
+#include "test_utils_fuzzer.h"
 
-#include <algorithm>
-#include <chrono>
 #include <cstddef>
 #include <cstdint>
-#include <string>
 
-#include "access_manager.h"
-#include "distributed_hardware_errno.h"
-#include "distributed_hardware_manager_factory.h"
+#include "anonymous_string.h"
+#include "dh_utils_tool.h"
 
 namespace OHOS {
 namespace DistributedHardware {
-constexpr uint16_t TEST_DEV_TYPE_PAD = 0x11;
-constexpr uint16_t STR_LEN = 32;
-
-bool AccessManagerFuzzTest(const uint8_t* data, size_t size)
+void GetAnonyStringTest(const uint8_t* data, size_t size)
 {
-    if (size > (STR_LEN * 2)) {
-        std::string networkId(reinterpret_cast<const char*>(data), STR_LEN);
-        std::string uuid(reinterpret_cast<const char*>(data + STR_LEN), STR_LEN);
-
-        DistributedHardwareManagerFactory::GetInstance().SendOnLineEvent(
-            networkId, uuid, TEST_DEV_TYPE_PAD);
-        return true;
-    } else {
-        return false;
+    if ((data == nullptr) || (size <= 0)) {
+        return;
     }
+
+    std::string str(reinterpret_cast<const char*>(data), size);
+    std::string anonyStr = GetAnonyString(str);
+}
+
+void GetAnonyInt32Test(const uint8_t* data, size_t size)
+{
+    if ((data == nullptr) || (size < sizeof(int32_t))) {
+        return;
+    }
+
+    int32_t i = *(reinterpret_cast<const int32_t*>(data));
+    std::string anonyStri = GetAnonyInt32(i);
 }
 }
 }
@@ -50,7 +49,8 @@ bool AccessManagerFuzzTest(const uint8_t* data, size_t size)
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
 {
     /* Run your code on data */
-    OHOS::DistributedHardware::AccessManagerFuzzTest(data, size);
+    OHOS::DistributedHardware::GetAnonyStringTest(data, size);
+    OHOS::DistributedHardware::GetAnonyInt32Test(data, size);
     return 0;
 }
 

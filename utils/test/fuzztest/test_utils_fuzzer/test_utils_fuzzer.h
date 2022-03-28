@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-#ifndef TEST_RESOURCEMANAGER_FUZZER_H
-#define TEST_RESOURCEMANAGER_FUZZER_H
+#ifndef TEST_UTILS_FUZZER_H
+#define TEST_UTILS_FUZZER_H
 
-#define FUZZ_PROJECT_NAME "test_ResourceManager_fuzzer"
+#define FUZZ_PROJECT_NAME "test_utils_fuzzer"
 
 #endif

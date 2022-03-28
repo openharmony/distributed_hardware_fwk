@@ -13,33 +13,33 @@
  * limitations under the License.
  */
 
-#include "test_Utils_fuzzer.h"
+#include "test_accessmanager_fuzzer.h"
 
+#include <algorithm>
+#include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
-#include "anonymous_string.h"
-#include "dh_utils_tool.h"
-
+#include "access_manager.h"
+#include "distributed_hardware_errno.h"
+#include "distributed_hardware_manager_factory.h"
 
 namespace OHOS {
 namespace DistributedHardware {
-constexpr uint16_t STR_LEN = 32;
+constexpr uint16_t TEST_DEV_TYPE_PAD = 0x11;
 
-bool UtilsFuzzerTet(const uint8_t* data, size_t size)
+void AccessManagerFuzzTest(const uint8_t* data, size_t size)
 {
-    if (size > STR_LEN) {
-        std::string str1(reinterpret_cast<const char*>(data), STR_LEN);
-        std::string anonyStr1 = GetAnonyString(str1);
-
-        std::string str2(reinterpret_cast<const char*>(data), (*data) % STR_LEN);
-        std::string anonyStr2 = GetAnonyString(str2);
-
-        int32_t i = *(reinterpret_cast<const int32_t*>(data));
-        std::string anonyStri = GetAnonyInt32(i);
-        return true;
+    if ((data == nullptr) || (size <= 0)) {
+        return;
     }
-    return false;
+
+    std::string networkId(reinterpret_cast<const char*>(data), size);
+    std::string uuid(reinterpret_cast<const char*>(data), size);
+
+    DistributedHardwareManagerFactory::GetInstance().SendOnLineEvent(
+        networkId, uuid, TEST_DEV_TYPE_PAD);
 }
 }
 }
@@ -48,7 +48,7 @@ bool UtilsFuzzerTet(const uint8_t* data, size_t size)
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
 {
     /* Run your code on data */
-    OHOS::DistributedHardware::UtilsFuzzerTet(data, size);
+    OHOS::DistributedHardware::AccessManagerFuzzTest(data, size);
     return 0;
 }
 

@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-#ifndef TEST_ACCESSMANAGER_FUZZER_H
-#define TEST_ACCESSMANAGER_FUZZER_H
+#ifndef TEST_COMPONENTMANAGER_FUZZER_H
+#define TEST_COMPONENTMANAGER_FUZZER_H
 
-#define FUZZ_PROJECT_NAME "test_AccessManager_fuzzer"
+#define FUZZ_PROJECT_NAME "test_componentmanager_fuzzer"
 
 #endif
-

@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-#ifndef TEST_UTILS_FUZZER_H
-#define TEST_UTILS_FUZZER_H
+#ifndef TEST_ACCESSMANAGER_FUZZER_H
+#define TEST_ACCESSMANAGER_FUZZER_H
 
-#define FUZZ_PROJECT_NAME "test_Utils_fuzzer"
+#define FUZZ_PROJECT_NAME "test_accessmanager_fuzzer"
 
 #endif
+

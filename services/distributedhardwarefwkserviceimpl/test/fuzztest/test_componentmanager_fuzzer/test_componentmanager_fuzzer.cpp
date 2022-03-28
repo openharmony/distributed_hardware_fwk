@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "test_ComponentManager_fuzzer.h"
+#include "test_componentmanager_fuzzer.h"
 
 #include <cstddef>
 #include <cstdint>
@@ -27,23 +27,20 @@
 
 namespace OHOS {
 namespace DistributedHardware {
-constexpr uint16_t STR_LEN = 32;
-
-bool ComponentManagerFuzzTest(const uint8_t* data, size_t size)
+void ComponentManagerFuzzTest(const uint8_t* data, size_t size)
 {
-    if (size > (STR_LEN * 3)) {
-        std::string networkId(reinterpret_cast<const char*>(data), STR_LEN);
-        std::string uuid(reinterpret_cast<const char*>(data + STR_LEN), STR_LEN);
-        std::string dhId(reinterpret_cast<const char*>(data + STR_LEN * 2), STR_LEN);
-
-        ComponentManager::GetInstance().Init();
-        ComponentManager::GetInstance().Enable(networkId, uuid, dhId);
-        ComponentManager::GetInstance().Disable(networkId, uuid, dhId);
-        ComponentManager::GetInstance().UnInit();
-        return true;
-    } else {
-        return false;
+    if ((data == nullptr) || (size <= 0)) {
+        return;
     }
+
+    std::string networkId(reinterpret_cast<const char*>(data), size);
+    std::string uuid(reinterpret_cast<const char*>(data), size);
+    std::string dhId(reinterpret_cast<const char*>(data), size);
+
+    ComponentManager::GetInstance().Init();
+    ComponentManager::GetInstance().Enable(networkId, uuid, dhId);
+    ComponentManager::GetInstance().Disable(networkId, uuid, dhId);
+    ComponentManager::GetInstance().UnInit();
 }
 }
 }

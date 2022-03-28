@@ -18,14 +18,22 @@ import(
     "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
-ohos_fuzztest("test_Utils_fuzzer") {
-  module_out_path = "distributed_hardware_fwk/test_Utils_fuzzer"
+ohos_fuzztest("test_resourcemanager_fuzzer") {
+  module_out_path = "distributed_hardware_fwk/test_resourcemanager_fuzzer"
 
   include_dirs = [
     "${utils_path}/include",
     "${utils_path}/include/log",
+    "${utils_path}/include/eventbus",
+    "${services_path}/distributedhardwarefwkserviceimpl/include",
+    "${services_path}/distributedhardwarefwkserviceimpl/include/resourcemanager",
+    "${services_path}/distributedhardwarefwkserviceimpl/include/utils",
     "${common_path}/utils/include",
+    "${common_path}/log/include",
     "//utils/native/base/include",
+    "//third_party/json/include",
+    "//utils/native/base/include",
+    "//utils/system/safwk/native/include",
   ]
   cflags = [
     "-g",
@@ -33,14 +41,32 @@ ohos_fuzztest("test_Utils_fuzzer") {
     "-Wno-unused-variable",
     "-fno-omit-frame-pointer",
   ]
-  sources = [ "test_Utils_fuzzer.cpp" ]
+  sources = [ "test_resourcemanager_fuzzer.cpp" ]
 
-  deps = [ "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils" ]
+  deps = [
+    "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl:distributedhardwarefwksvr_impl",
+    "//foundation/distributedhardware/distributedhardwarefwk/utils:distributedhardwareutils",
+    "//utils/native/base:utils",
+  ]
+
+  defines = [
+    "HI_LOG_ENABLE",
+    "DH_LOG_TAG=\"test_resourcemanager_fuzzer\"",
+    "LOG_DOMAIN=0xD004100",
+  ]
+
+  external_deps = [
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "distributeddatamgr:distributeddata_inner",
+    "eventhandler:libeventhandler",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
 }
 
 ###############################################################################
 group("fuzztest") {
   testonly = true
-  deps = [ ":test_Utils_fuzzer" ]
+  deps = [ ":test_resourcemanager_fuzzer" ]
 }
 ###############################################################################
