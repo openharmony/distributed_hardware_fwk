@@ -43,7 +43,8 @@ void PluginListenerImpl::UnPluginHardware(const std::string &dhId)
     std::shared_ptr<CapabilityInfo> capability = nullptr;
     auto ret = CapabilityInfoManager::GetInstance()->GetCapability(deviceId, dhId, capability);
     if ((ret != DH_FWK_SUCCESS) || (capability == nullptr)) {
-        DHLOGE("GetCapability failed, deviceId =%s, dhId = %s, errCode = %d", deviceId.c_str(), dhId.c_str(), ret);
+        DHLOGE("GetCapability failed, deviceId =%s, dhId = %s, errCode = %d",
+            GetAnonyString(deviceId).c_str(), GetAnonyString(dhId).c_str(), ret);
         return;
     }
     CapabilityInfoManager::GetInstance()->RemoveCapabilityInfoByKey(capability->GetKey());
