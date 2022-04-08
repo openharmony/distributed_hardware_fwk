@@ -149,15 +149,16 @@ ComponentManager::ActionResult ComponentManager::StopSink()
     std::unordered_map<DHType, std::shared_future<int32_t>> futures;
     for (const auto &item : compSink_) {
         auto future = std::async(std::launch::async, [item]() {
-        int32_t status = item.second->ReleaseSink();
-        IHardwareHandler *hardwareHandler = nullptr;
-        status = ComponentLoader::GetInstance().GetHardwareHandler(item.first, hardwareHandler);
-        if (status != DH_FWK_SUCCESS || hardwareHandler == nullptr) {
-            DHLOGE("GetHardwareHandler %#X failed", item.first);
+            int32_t status = item.second->ReleaseSink();
+            IHardwareHandler *hardwareHandler = nullptr;
+            status = ComponentLoader::GetInstance().GetHardwareHandler(item.first, hardwareHandler);
+            if (status != DH_FWK_SUCCESS || hardwareHandler == nullptr) {
+                DHLOGE("GetHardwareHandler %#X failed", item.first);
+                return status;
+            }
+            hardwareHandler->UnRegisterPluginListener();
             return status;
-        }
-        hardwareHandler->UnRegisterPluginListener();
-        return status; });
+        });
 
         futures.emplace(item.first, future.share());
     }

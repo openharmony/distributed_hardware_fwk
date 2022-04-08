@@ -21,8 +21,7 @@
 
 namespace OHOS {
 namespace DistributedHardware {
-class PluginListenerImpl : public PluginListener
-{
+class PluginListenerImpl : public PluginListener {
 public:
     explicit PluginListenerImpl(const DHType type) : dhType_(type) {}
     virtual ~PluginListenerImpl() = default;
