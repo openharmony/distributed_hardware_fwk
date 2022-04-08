@@ -13,7 +13,8 @@
 
 import("//build/ohos.gni")
 import("//build/ohos_var.gni")
-import("//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
+import(
+    "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ohos_shared_library("distributedhardwarefwksvr_impl") {
   include_dirs = [
@@ -36,34 +37,35 @@ ohos_shared_library("distributedhardwarefwksvr_impl") {
   ]
 
   sources = [
+    "src/componentloader/component_loader.cpp",
+    "src/componentmanager/component_disable.cpp",
+    "src/componentmanager/component_enable.cpp",
+    "src/componentmanager/component_manager.cpp",
     "src/distributed_hardware_manager.cpp",
     "src/distributed_hardware_proxy.cpp",
-    "src/componentloader/component_loader.cpp",
+    "src/localhardwaremanager/local_hardware_manager.cpp",
+    "src/localhardwaremanager/plugin_listener_impl.cpp",
+    "src/resourcemanager/capability_info.cpp",
+    "src/resourcemanager/capability_info_manager.cpp",
+    "src/resourcemanager/capability_utils.cpp",
+    "src/resourcemanager/db_adapter.cpp",
     "src/task/disable_task.cpp",
     "src/task/enable_task.cpp",
     "src/task/offline_task.cpp",
     "src/task/online_task.cpp",
+    "src/task/task.cpp",
     "src/task/task_board.cpp",
     "src/task/task_executor.cpp",
     "src/task/task_factory.cpp",
-    "src/task/task.cpp",
     "src/utils/dh_context.cpp",
     "src/versionmanager/version_manager.cpp",
-    "src/componentmanager/component_manager.cpp",
-    "src/componentmanager/component_enable.cpp",
-    "src/componentmanager/component_disable.cpp",
-    "src/localhardwaremanager/local_hardware_manager.cpp",
-    "src/resourcemanager/capability_info.cpp",
-    "src/resourcemanager/capability_info_manager.cpp",
-    "src/resourcemanager/db_adapter.cpp",
-    "src/resourcemanager/capability_utils.cpp"
   ]
 
   deps = [
     "${utils_path}:distributedhardwareutils",
-    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
     "//foundation/aafwk/standard/interfaces/innerkits/ability_manager:ability_manager",
     "//foundation/aafwk/standard/services/abilitymgr:abilityms",
+    "//foundation/distributedschedule/safwk/interfaces/innerkits/safwk:system_ability_fwk",
     "//utils/native/base:utils",
   ]
 
@@ -76,9 +78,9 @@ ohos_shared_library("distributedhardwarefwksvr_impl") {
   external_deps = [
     "bundle_framework:appexecfwk_base",
     "bundle_framework:appexecfwk_core",
+    "distributeddatamgr:distributeddata_inner",
     "eventhandler:libeventhandler",
     "hiviewdfx_hilog_native:libhilog",
-    "distributeddatamgr:distributeddata_inner",
     "ipc:ipc_core",
     "safwk:system_ability_fwk",
     "samgr_standard:samgr_proxy",

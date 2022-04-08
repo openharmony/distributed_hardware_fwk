@@ -31,8 +31,8 @@ struct DHItem {
 
 class PluginListener {
 public:
-    virtual void PluginHardware(std::string dhId, std::string attrs) = 0;
-    virtual void UnPluginHardware(std::string dhId) = 0;
+    virtual void PluginHardware(const std::string &dhId, const std::string &attrs) = 0;
+    virtual void UnPluginHardware(const std::string &dhId) = 0;
 };
 
 class IHardwareHandler {
@@ -42,6 +42,7 @@ public:
     virtual std::map<std::string, std::string> QueryExtraInfo() = 0;
     virtual bool IsSupportPlugin() = 0;
     virtual void RegisterPluginListener(std::shared_ptr<PluginListener> listener) = 0;
+    virtual void UnRegisterPluginListener() = 0;
 };
 extern "C" __attribute__((visibility("default"))) IHardwareHandler* GetHardwareHandler();
 } // namespace DistributedHardware
