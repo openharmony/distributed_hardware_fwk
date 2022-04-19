@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "test_accessmanager_fuzzer.h"
+#include "accessmanager_fuzzer.h"
 
 #include <algorithm>
 #include <chrono>

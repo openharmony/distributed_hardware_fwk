@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "test_componentmanager_fuzzer.h"
+#include "componentmanager_fuzzer.h"
 
 #include <cstddef>
 #include <cstdint>

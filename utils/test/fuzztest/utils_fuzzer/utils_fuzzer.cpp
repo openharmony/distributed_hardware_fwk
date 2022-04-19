@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "test_utils_fuzzer.h"
+#include "utils_fuzzer.h"
 
 #include <cstddef>
 #include <cstdint>

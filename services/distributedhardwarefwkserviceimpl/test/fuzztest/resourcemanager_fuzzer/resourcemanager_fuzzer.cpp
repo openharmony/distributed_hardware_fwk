@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "test_resourcemanager_fuzzer.h"
+#include "resourcemanager_fuzzer.h"
 
 #include <cstddef>
 #include <cstdint>

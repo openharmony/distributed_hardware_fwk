@@ -18,8 +18,9 @@ import(
     "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
-ohos_fuzztest("test_componentmanager_fuzzer") {
-  module_out_path = "distributed_hardware_fwk/test_componentmanager_fuzzer"
+ohos_fuzztest("DhfwkComponentmanagerFuzzer") {
+  module_out_path = "distributed_hardware_fwk/componentmanager_fuzzer"
+  fuzz_config_file = "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl/test/fuzztest/componentmanager_fuzzer"
 
   include_dirs = [
     "${utils_path}/include",
@@ -37,7 +38,7 @@ ohos_fuzztest("test_componentmanager_fuzzer") {
     "-Wno-unused-variable",
     "-fno-omit-frame-pointer",
   ]
-  sources = [ "test_componentmanager_fuzzer.cpp" ]
+  sources = [ "componentmanager_fuzzer.cpp" ]
 
   deps = [
     "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl:distributedhardwarefwksvr_impl",
@@ -46,7 +47,7 @@ ohos_fuzztest("test_componentmanager_fuzzer") {
 
   defines = [
     "HI_LOG_ENABLE",
-    "DH_LOG_TAG=\"test_componentmanager_fuzzer\"",
+    "DH_LOG_TAG=\"DhfwkComponentmanagerFuzzer\"",
     "LOG_DOMAIN=0xD004100",
   ]
 
@@ -56,6 +57,6 @@ ohos_fuzztest("test_componentmanager_fuzzer") {
 ###############################################################################
 group("fuzztest") {
   testonly = true
-  deps = [ ":test_componentmanager_fuzzer" ]
+  deps = [ ":DhfwkComponentmanagerFuzzer" ]
 }
 ###############################################################################
