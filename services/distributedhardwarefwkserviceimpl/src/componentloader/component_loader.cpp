@@ -42,6 +42,11 @@ const std::string DEFAULT_SOURCE_LOC = "";
 const std::string DEFAULT_SINK_LOC = "";
 const std::string DEFAULT_TYPE = "UNKNOWN";
 const std::string DEFAULT_VERSION = "1.0";
+#ifdef __LP64__
+const std::string LIB_LOAD_PATH = "/system/lib64/";
+#else
+const std::string LIB_LOAD_PATH = "/system/lib/";
+#endif
 }
 std::map<std::string, DHType> g_mapDhTypeName = {
     { "UNKNOWN", DHType::UNKNOWN },
@@ -131,7 +136,8 @@ void *ComponentLoader::GetHandler(const std::string &soName)
         return nullptr;
     }
     char path[PATH_MAX + 1] = {0x00};
-    if (soName.length() == 0 || soName.length() > PATH_MAX || realpath(soName.c_str(), path) == nullptr) {
+    if (soName.length() == 0 || (LIB_LOAD_PATH.length() + soName.length()) > PATH_MAX ||
+        realpath((LIB_LOAD_PATH + soName).c_str(), path) == nullptr) {
         DHLOGE("File canonicalization failed");
         return nullptr;
     }
