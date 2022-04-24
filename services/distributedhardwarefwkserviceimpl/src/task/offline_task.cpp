@@ -32,7 +32,7 @@ namespace DistributedHardware {
 #define DH_LOG_TAG "OffLineTask"
 
 OffLineTask::OffLineTask(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-    const DHType &dhType) : Task(networkId, uuid, dhId, dhType)
+    const DHType dhType) : Task(networkId, uuid, dhId, dhType)
 {
     this->SetTaskType(TaskType::OFF_LINE);
     this->SetTaskSteps({TaskStep::UNREGISTER_OFFLINE_DISTRIBUTED_HARDWARE, TaskStep::WAIT_UNREGISTGER_COMPLETE,

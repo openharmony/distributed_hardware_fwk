@@ -30,7 +30,7 @@ namespace DistributedHardware {
 #define DH_LOG_TAG "OnLineTask"
 
 OnLineTask::OnLineTask(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-    const DHType &dhType) : Task(networkId, uuid, dhId, dhType)
+    const DHType dhType) : Task(networkId, uuid, dhId, dhType)
 {
     SetTaskType(TaskType::ON_LINE);
     SetTaskSteps(std::vector<TaskStep> { TaskStep::SYNC_ONLINE_INFO, TaskStep::REGISTER_ONLINE_DISTRIBUTED_HARDWARE });

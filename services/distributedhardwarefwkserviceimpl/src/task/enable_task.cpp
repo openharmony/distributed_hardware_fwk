@@ -27,7 +27,7 @@ namespace DistributedHardware {
 #define DH_LOG_TAG "EnableTask"
 
 EnableTask::EnableTask(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-    const DHType &dhType) : Task(networkId, uuid, dhId, dhType)
+    const DHType dhType) : Task(networkId, uuid, dhId, dhType)
 {
     SetTaskType(TaskType::ENABLE);
     SetTaskSteps(std::vector<TaskStep> { TaskStep::DO_ENABLE });

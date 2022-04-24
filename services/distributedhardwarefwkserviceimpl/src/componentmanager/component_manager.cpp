@@ -220,7 +220,7 @@ bool ComponentManager::InitCompSink()
 }
 
 int32_t ComponentManager::Enable(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-    const DHType &dhType)
+    const DHType dhType)
 {
     DHLOGI("start.");
     auto find = compSource_.find(dhType);
@@ -268,7 +268,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
 }
 
 int32_t ComponentManager::Disable(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-    const DHType &dhType)
+    const DHType dhType)
 {
     auto find = compSource_.find(dhType);
     if (find == compSource_.end()) {

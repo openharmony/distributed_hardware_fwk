@@ -25,7 +25,7 @@
 namespace OHOS {
 namespace DistributedHardware {
 MockOffLineTask::MockOffLineTask(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-    const DHType &dhType) : OffLineTask(networkId, uuid, dhId, dhType)
+    const DHType dhType) : OffLineTask(networkId, uuid, dhId, dhType)
 {}
 
 void MockOffLineTask::CreateDisableTask()

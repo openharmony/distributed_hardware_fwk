@@ -20,7 +20,7 @@
 
 namespace OHOS {
 namespace DistributedHardware {
-Task::Task(const std::string &networkId, const std::string &uuid, const std::string &dhId, const DHType &dhType)
+Task::Task(const std::string &networkId, const std::string &uuid, const std::string &dhId, const DHType dhType)
     : id_(DH_TASK_NAME_PREFIX + GetRandomID()), networkId_(networkId), uuid_(uuid), dhId_(dhId), dhType_(dhType)
 {}
 

@@ -29,7 +29,7 @@ namespace DistributedHardware {
 class Task : public std::enable_shared_from_this<Task> {
 public:
     Task() = delete;
-    Task(const std::string &networkId, const std::string &uuid, const std::string &dhId, const DHType &dhType);
+    Task(const std::string &networkId, const std::string &uuid, const std::string &dhId, const DHType dhType);
     virtual ~Task();
     virtual void DoTask() = 0;
 

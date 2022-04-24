@@ -40,9 +40,9 @@ public:
     int32_t Init();
     int32_t UnInit();
     int32_t Enable(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-        const DHType &dhType);
+        const DHType dhType);
     int32_t Disable(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-        const DHType &dhType);
+        const DHType dhType);
 
 private:
     enum class Action : int32_t {

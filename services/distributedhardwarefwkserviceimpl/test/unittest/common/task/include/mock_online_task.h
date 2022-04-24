@@ -27,7 +27,7 @@ class MockOnLineTask : public OnLineTask {
 public:
     MockOnLineTask() = delete;
     MockOnLineTask(const std::string &networkId, const std::string &uuid, const std::string &dhId,
-        const DHType &dhType);
+        const DHType dhType);
 
     void SetOnLineDevInfos(std::vector<MockDevInfo> devInfos);
 private:
