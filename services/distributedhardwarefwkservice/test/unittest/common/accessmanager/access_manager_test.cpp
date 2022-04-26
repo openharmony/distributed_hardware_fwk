@@ -212,10 +212,6 @@ HWTEST_F(AccessManagerTest, SendOffLineEvent_003, TestSize.Level0)
 
     threadVec.emplace_back(
         std::thread(handler, Status::DEVICE_OFFLINE, TEST_DEVICES[0].first, TEST_DEVICES[0].second, DH_FWK_SUCCESS));
-    std::this_thread::sleep_for(std::chrono::milliseconds(INTERVAL_TIME_MS));
-
-    threadVec.emplace_back(
-        std::thread(handler, Status::DEVICE_OFFLINE, TEST_DEVICES[2].first, TEST_DEVICES[2].second, DH_FWK_SUCCESS));
 
     for_each(threadVec.begin(), threadVec.end(), [](std::thread &t) { t.join(); });
 }
