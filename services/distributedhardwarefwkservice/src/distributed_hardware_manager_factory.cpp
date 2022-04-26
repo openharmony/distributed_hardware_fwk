@@ -65,19 +65,19 @@ void DistributedHardwareManagerFactory::UnInit()
     distributedHardwareMgrPtr_->Release();
 
     CloseLibrary();
-    CheckAllDevicesOffline();
+    CheckExitSAOrNot();
 }
 
-void DistributedHardwareManagerFactory::CheckAllDevicesOffline()
+void DistributedHardwareManagerFactory::CheckExitSAOrNot()
 {
     std::vector<DmDeviceInfo> deviceList;
     DeviceManager::GetInstance().GetTrustedDeviceList(DH_FWK_PKG_NAME, "", deviceList);
     if (deviceList.size() == 0) {
-        DHLOGI("exit sa process");
+        DHLOGI("DM report devices offline, exit sa process");
         exit(0);
     }
 
-    DHLOGI("reinitialize");
+    DHLOGI("After uninit, DM report devices online, reinit");
     Init();
     for (const auto &deviceInfo : deviceList) {
         const auto networkId = std::string(deviceInfo.deviceId);
