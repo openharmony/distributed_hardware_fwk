@@ -68,10 +68,3 @@ ohos_shared_library("distributedhardwarefwksvr") {
 
   part_name = "distributed_hardware_fwk"
 }
-
-ohos_prebuilt_etc("distributedhardware_fwk.cfg") {
-  relative_install_dir = "init"
-  source = "distributedhardware_fwk.cfg"
-  part_name = "distributed_hardware_fwk"
-  subsystem_name = "distributedhardware"
-}
