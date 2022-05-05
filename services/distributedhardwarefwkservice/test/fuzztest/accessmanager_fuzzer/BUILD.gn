@@ -18,8 +18,8 @@ import(
     "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
-ohos_fuzztest("DHfwkAccessmanagerFuzzer") {
-  module_out_path = "distributed_hardware_fwk/accessmanager_fuzzer"
+ohos_fuzztest("AccessmanagerFuzzTest") {
+  module_out_path = "distributed_hardware_fwk/accessmanager"
   fuzz_config_file = "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkservice/test/fuzztest/accessmanager_fuzzer"
 
   include_dirs = [
@@ -51,7 +51,7 @@ ohos_fuzztest("DHfwkAccessmanagerFuzzer") {
 
   defines = [
     "HI_LOG_ENABLE",
-    "DH_LOG_TAG=\"DHfwkAccessmanagerFuzzer\"",
+    "DH_LOG_TAG=\"AccessmanagerFuzzTest\"",
     "LOG_DOMAIN=0xD004100",
   ]
 
@@ -69,6 +69,6 @@ ohos_fuzztest("DHfwkAccessmanagerFuzzer") {
 group("fuzztest") {
   testonly = true
 
-  deps = [ ":DHfwkAccessmanagerFuzzer" ]
+  deps = [ ":AccessmanagerFuzzTest" ]
 }
 ###############################################################################

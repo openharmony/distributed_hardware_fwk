@@ -18,8 +18,8 @@ import(
     "//foundation/distributedhardware/distributedhardwarefwk/distributedhardwarefwk.gni")
 
 ##############################fuzztest##########################################
-ohos_fuzztest("DhfwkComponentmanagerFuzzer") {
-  module_out_path = "distributed_hardware_fwk/componentmanager_fuzzer"
+ohos_fuzztest("ComponentmanagerFuzzTest") {
+  module_out_path = "distributed_hardware_fwk/componentmanager"
   fuzz_config_file = "//foundation/distributedhardware/distributedhardwarefwk/services/distributedhardwarefwkserviceimpl/test/fuzztest/componentmanager_fuzzer"
 
   include_dirs = [
@@ -47,7 +47,7 @@ ohos_fuzztest("DhfwkComponentmanagerFuzzer") {
 
   defines = [
     "HI_LOG_ENABLE",
-    "DH_LOG_TAG=\"DhfwkComponentmanagerFuzzer\"",
+    "DH_LOG_TAG=\"ComponentmanagerFuzzTest\"",
     "LOG_DOMAIN=0xD004100",
   ]
 
@@ -57,6 +57,6 @@ ohos_fuzztest("DhfwkComponentmanagerFuzzer") {
 ###############################################################################
 group("fuzztest") {
   testonly = true
-  deps = [ ":DhfwkComponentmanagerFuzzer" ]
+  deps = [ ":ComponentmanagerFuzzTest" ]
 }
 ###############################################################################
