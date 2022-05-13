@@ -417,5 +417,15 @@ sptr<IDistributedHardware> ComponentManager::GetRemoteDHMS(const std::string &ne
     }
     return iface_cast<IDistributedHardware>(object);
 }
+
+void ComponentManager::DumpLoadedComps(std::set<DHType> &compSourceType, std::set<DHType> &compSinkType)
+{
+    for (auto compSource : compSource_) {
+        compSourceType.emplace(compSource.first);
+    }
+    for (auto compSink : compSink_) {
+        compSinkType.emplace(compSink.first);
+    }
+}
 } // namespace DistributedHardware
 } // namespace OHOS

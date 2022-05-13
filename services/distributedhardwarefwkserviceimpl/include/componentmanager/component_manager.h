@@ -17,6 +17,7 @@
 #define OHOS_DISTRIBUTED_HARDWARE_COMPONENT_MANAGER_H
 
 #include <map>
+#include <set>
 #include <unordered_map>
 #include <mutex>
 #include <future>
@@ -68,6 +69,8 @@ private:
     std::string GetVersionFromCache(const std::string &uuid, DHType dhType);
     int32_t UpdateVersionCache(const std::string &networkId, const std::string &uuid);
     sptr<IDistributedHardware> GetRemoteDHMS(const std::string &networkId) const;
+
+    void DumpLoadedComps(std::set<DHType> &compSourceType, std::set<DHType> &compSinkType);
 
 private:
     std::map<DHType, IDistributedHardwareSource*> compSource_;

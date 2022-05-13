@@ -119,7 +119,7 @@ int32_t DHHidumpHelper::ProcessDump(const HidumpFlag& flag, std::string &result)
 
     return errCode;
 }
-
+/*
 void DumpLoadedComps(const DHType dhType)
 {
     loadedCompsSet_.emplace(dhType);
@@ -132,7 +132,6 @@ void DumpUnloadedComps(const DHType dhType)
         loadedCompsSet_.earse(it);
     }
 }
-
 int32_t DHHidumpHelper::ShowAllLoadCompTypes(std::string &result)
 {
     DHLOGI("GetAllLoadCompTypes  Dump.");
@@ -144,6 +143,30 @@ int32_t DHHidumpHelper::ShowAllLoadCompTypes(std::string &result)
     }
     result.append("\n");
     return DH_SUCCESS;
+}
+*/
+
+void DHHidumpHelper::ShowAllLoadCompTypes(std::string &result)
+{
+    std::set<DHType> loadedCompSource;
+    std::set<DHType> loadedCompSink;
+    ComponentManager::GetInstance().DumpLoadedComps(loadedCompSource, loadedCompSink);
+
+    DHLOGI("GetAllLoadCompTypes  Dump.");
+    result.append("Local Loaded Components:\n");
+    result.append("    Source:    ");
+    for (auto comp : loadedCompSource) {
+        result.append(mapDhTypeName[comp]);
+        result.append(" | ");
+    }
+    result.append("\n");
+
+    result.append("    Sink:    ");
+    for (auto comp : loadedCompSink) {
+        result.append(mapDhTypeName[comp]);
+        result.append(" | ");
+    }
+    result.append("\n\n");
 }
 
 void DHHidumpHelper::DumpEnabledComps(const DHType dhType, const std::string &dhId)
