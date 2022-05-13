@@ -25,10 +25,10 @@
 #include "component_loader.h"
 #include "constants.h"
 #include "dh_context.h"
-#include "dh_hidump_helper.h"
 #include "dh_utils_tool.h"
 #include "distributed_hardware_errno.h"
 #include "distributed_hardware_log.h"
+#include "hidump_helper.h"
 #include "ipc_object_stub.h"
 #include "iservice_registry.h"
 #include "system_ability_definition.h"
@@ -258,7 +258,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             }
             if (compEnable->Enable(networkId, dhId, param, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("enable success, retryCount = %d", retryCount);
-                DHHidumpHelper::GetInstance().DumpEnabledComps(dhType, dhId);
+                HidumpHelper::GetInstance().DumpEnabledComps(dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
             DHLOGE("enable failed, retryCount = %d", retryCount);
@@ -267,7 +267,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
     }
     DHLOGI("enable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-    DHHidumpHelper::GetInstance().DumpEnabledComps(dhType, dhId);
+    HidumpHelper::GetInstance().DumpEnabledComps(dhType, dhId);
     return result;
 }
 
@@ -289,7 +289,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
             }
             if (compDisable->Disable(networkId, dhId, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("disable success, retryCount = %d", retryCount);
-                DHHidumpHelper::GetInstance().DumpDisabledComps(dhType, dhId);
+                HidumpHelper::GetInstance().DumpDisabledComps(dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
             DHLOGE("disable failed, retryCount = %d", retryCount);
@@ -298,7 +298,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
     }
     DHLOGI("disable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-    DHHidumpHelper::GetInstance().DumpDisabledComps(dhType, dhId);
+    HidumpHelper::GetInstance().DumpDisabledComps(dhType, dhId);
     return result;
 }
 

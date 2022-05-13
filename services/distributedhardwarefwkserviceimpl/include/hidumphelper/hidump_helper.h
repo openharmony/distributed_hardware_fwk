@@ -20,19 +20,16 @@
 #include <string>
 
 #include "device_type.h"
+#include "task.h"
 
 namespace OHOS {
 namespace DistributedHardware {
-enum class HidumpFlag {
-    UNKNOW = 0,
-    GET_HELP,
-    GET_LOADED_COMP_LIST,
-};
 
-struct HidumpParam {
-    HidumpFlag hidumpFlag = HidumpFlag::UNKNOW;
-    std::string args;
-};
+
+// struct HidumpParam {
+//     HidumpFlag hidumpFlag = HidumpFlag::UNKNOW;
+//     std::string args;
+// };
 
 struct HidumpDeviceInfo {
     std::string dhId_;
@@ -43,18 +40,18 @@ struct HidumpDeviceInfo {
     }
 };
 
-enum class HidumpTaskType : int32_t {
-    UNKNOWN = 0,
-    ENABLE = 1,
-    DISABLE = 2,
-    ON_LINE = 3,
-    OFF_LINE = 4
-};
+// enum class HidumpTaskType : int32_t {
+//     UNKNOWN = 0,
+//     ENABLE = 1,
+//     DISABLE = 2,
+//     ON_LINE = 3,
+//     OFF_LINE = 4
+// };
 
-class DHHidumpHelper {
-DECLARE_SINGLE_INSTANCE_BASE(DHHidumpHelper);
+class HidumpHelper {
+DECLARE_SINGLE_INSTANCE_BASE(HidumpHelper);
 public:
-    bool Dump(const std::vector<std::string>& args, std::string &result);
+    int32_t Dump(const std::vector<std::string>& args, std::string &result);
 
     void DumpLoadedComps(const DHType dhType);
     void DumpUnloadedComps(const DHType dhType);
@@ -71,7 +68,7 @@ private:
 
 
 private:
-    std::set<DHType> loadedCompsSet_;
+    // std::set<DHType> loadedCompsSet_;
     std::set<HidumpDeviceInfo> deviceInfoSet_;
 };
 

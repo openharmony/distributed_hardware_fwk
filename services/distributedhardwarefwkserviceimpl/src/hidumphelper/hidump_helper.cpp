@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "dh_hidump_helper.h"
+#include "hidump_helper.h"
 
 #include <unordered_map>
 
@@ -22,20 +22,28 @@
 
 namespace OHOS {
 namespace DistributedHardware {
-IMPLEMENT_SINGLE_INSTANCE(DHHidumpHelper);
+IMPLEMENT_SINGLE_INSTANCE(HidumpHelper);
 namespace {
 const int32_t MIN_ARGS_SIZE = 0;
 const int32_t MAX_ARGS_SIZE = 1;
 const int32_t FIRST_PARAM = 0;
+const std::string SEPARATOR = " | ";
+const std::string TAB = "    ";
 const std::string ARGS_HELP = "-h";
 const std::string LOADED_COMP_LIST = "-loaded-list";
 
-const std::unordered_map<std::string, HidumpFlag> ARGS_MAP = {
+enum class HidumpFlag {
+    UNKNOW = 0,
+    GET_HELP,
+    GET_LOADED_COMP_LIST,
+};
+
+std::unordered_map<std::string, HidumpFlag> g_mapArgs = {
     { ARGS_HELP, HidumpFlag::GET_HELP },
     { LOADED_COMP_LIST, HidumpFlag::GET_LOADED_COMP_LIST },
 };
 
-const std::unordered_map<DHType, std::string> mapDhTypeName = {
+std::unordered_map<DHType, std::string> g_mapDhTypeName = {
     { DHType::UNKNOWN, "UNKNOWN" },
     { DHType::CAMERA, "CAMERA" },
     { DHType::MIC, "MIC" },
@@ -48,9 +56,35 @@ const std::unordered_map<DHType, std::string> mapDhTypeName = {
     { DHType::VIRMODEM_MIC, "VIRMODEM_MIC" },
     { DHType::VIRMODEM_SPEAKER, "VIRMODEM_SPEAKER" },
 };
+
+std::unordered_map<TaskType, std::string> g_mapTaskType = {
+    { TaskType::UNKNOWN, "UNKNOWN" },
+    { TaskType::ENABLE, "ENABLE" },
+    { TaskType::DISABLE, "DISABLE" },
+    { TaskType::ON_LINE, "ON_LINE" },
+    { TaskType::OFF_LINE, "OFF_LINE" },
+};
+
+std::unordered_map<TaskStep, std::string> g_mapTaskStep = {
+    { TaskStep::DO_ENABLE, "DO_ENABLE" },
+    { TaskStep::DO_DISABLE, "DO_DISABLE" },
+    { TaskStep::SYNC_ONLINE_INFO, "SYNC_ONLINE_INFO" },
+    { TaskStep::REGISTER_ONLINE_DISTRIBUTED_HARDWARE, "REGISTER_ONLINE_DISTRIBUTED_HARDWARE" },
+    { TaskStep::UNREGISTER_OFFLINE_DISTRIBUTED_HARDWARE, "UNREGISTER_OFFLINE_DISTRIBUTED_HARDWARE" },
+    { TaskStep::CLEAR_OFFLINE_INFO, "CLEAR_OFFLINE_INFO" },
+    { TaskStep::WAIT_UNREGISTGER_COMPLET, "WAIT_UNREGISTGER_COMPLET" },
+};
+
+// enum class TaskState : int32_t {
+const std::unordered_map<TaskState, std::string> g_mapTaskState = {
+    { TaskState::INIT, "INIT" },
+    { TaskState::RUNNING, "RUNNING" },
+    { TaskState::SUCCESS, "SUCCESS" },
+    { TaskState::FAI, "FAI" },
+};
 }
 
-bool DHHidumpHelper::Dump(const std::vector<std::string>& args, std::string &result)
+int32_t HidumpHelper::Dump(const std::vector<std::string>& args, std::string &result)
 {
     DHLOGI("DHfwkHidumpHelper Dump args.size():%d.", args.size());
     result.clear();
@@ -65,7 +99,7 @@ bool DHHidumpHelper::Dump(const std::vector<std::string>& args, std::string &res
             break;
         }
         case MAX_ARGS_SIZE: {
-            errCode = ProcessDump(args[FIRST_PARAM], result);
+            errCode = ProcessDump(g_mapArgs[args[FIRST_PARAM]], result);
             break;
         }
         default: {
@@ -74,30 +108,22 @@ bool DHHidumpHelper::Dump(const std::vector<std::string>& args, std::string &res
         }
     }
 
-    bool ret = false;
     switch (errCode) {
         case DH_SUCCESS: {
-            ret = true;
             break;
         }
         case ERR_DH_FWK_HIDUMP_INVALID_ARGS: {
             ShowIllealInfomation(result);
-            ret = true;
-            break;
-        }
-        case ERR_DH_FWK_HIDUMP_UNKONW: {
-            result.append("");
-            ret = true;
             break;
         }
         default: {
             break;
         }
     }
-    return ret;
+    return errCode;
 }
 
-int32_t DHHidumpHelper::ProcessDump(const HidumpFlag& flag, std::string &result)
+int32_t HidumpHelper::ProcessDump(const HidumpFlag& flag, std::string &result)
 {
     DHLOGI("ProcessDump  Dump.");
     result.clear();
@@ -132,21 +158,21 @@ void DumpUnloadedComps(const DHType dhType)
         loadedCompsSet_.earse(it);
     }
 }
-int32_t DHHidumpHelper::ShowAllLoadCompTypes(std::string &result)
+int32_t HidumpHelper::ShowAllLoadCompTypes(std::string &result)
 {
     DHLOGI("GetAllLoadCompTypes  Dump.");
     result.append("loaded components:\n");
     result.append("    ");
     for (auto comp : loadedCompsSet_) {
-        result.append(mapDhTypeName[comp]);
-        result.append(" | ");
+        result.append(g_mapDhTypeName[comp]);
+        result.append(SEPARATOR);
     }
     result.append("\n");
     return DH_SUCCESS;
 }
 */
 
-void DHHidumpHelper::ShowAllLoadCompTypes(std::string &result)
+void HidumpHelper::ShowAllLoadCompTypes(std::string &result)
 {
     std::set<DHType> loadedCompSource;
     std::set<DHType> loadedCompSink;
@@ -154,22 +180,22 @@ void DHHidumpHelper::ShowAllLoadCompTypes(std::string &result)
 
     DHLOGI("GetAllLoadCompTypes  Dump.");
     result.append("Local Loaded Components:\n");
-    result.append("    Source:    ");
-    for (auto comp : loadedCompSource) {
-        result.append(mapDhTypeName[comp]);
-        result.append(" | ");
+    result.append("    Source: ");
+    for (auto compSource : loadedCompSource) {
+        result.append(g_mapDhTypeName[compSource]);
+        result.append(SEPARATOR);
     }
-    result.append("\n");
+    result.replce(result.size() - SEPARATOR.size(), SEPARATOR.size(), "  \n");
 
-    result.append("    Sink:    ");
-    for (auto comp : loadedCompSink) {
-        result.append(mapDhTypeName[comp]);
-        result.append(" | ");
+    result.append("    Sink: ");
+    for (auto compSink : loadedCompSink) {
+        result.append(g_mapDhTypeName[compSink]);
+        result.append(SEPARATOR);
     }
-    result.append("\n\n");
+    result.replce(result.size() - SEPARATOR.size(), SEPARATOR.size(), " \n\n");
 }
 
-void DHHidumpHelper::DumpEnabledComps(const DHType dhType, const std::string &dhId)
+void HidumpHelper::DumpEnabledComps(const DHType dhType, const std::string &dhId)
 {
     HidumpDeviceInfo info = {
         .dhId_ = dhId,
@@ -178,7 +204,7 @@ void DHHidumpHelper::DumpEnabledComps(const DHType dhType, const std::string &dh
     deviceInfoSet_.emplace(info);
 }
 
-void DHHidumpHelper::DumpDisabledComps(const DHType dhType, const std::string &dhId)
+void HidumpHelper::DumpDisabledComps(const DHType dhType, const std::string &dhId)
 {
     HidumpDeviceInfo info = {
         .dhId_ = dhId,
@@ -190,23 +216,53 @@ void DHHidumpHelper::DumpDisabledComps(const DHType dhType, const std::string &d
     }
 }
 
-int32_t DHHidumpHelper::ShowAllEnabledComps(std::string &result)
+int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
 {
-    DHLOGI("GetAllLoadCompTypes  Dump.");
-    result.append("loaded components:\n");
-    result.append("    ");
+    DHLOGI("GetAllEnabledComps  Dump.");
+    result.append("Enabled Components:\n");
+    result.append(TAB);
     for (auto info : enabledDeviceInfoSet_) {
-        result.append(" DHType : ");
-        result.append(mapDhTypeName[info.dhType_]);
-        result.append(" DHId : ");
-        result.append(info.dhId_);
-        result.append(" | ");
+        result.append(" DHType :");
+        result.append(g_mapDhTypeName[info.dhType_]);
+        result.append(" DHId :");
+        result.append(GetAnonyString(info.dhId_));
+        result.append(SEPARATOR);
     }
-    result.append("\n");
+    result.replce(result.size() - SEPARATOR.size(), SEPARATOR.size(), " \n\n");
     return DH_SUCCESS;
 }
 
-int32_t DHHidumpHelper::ShowHelp(std::string &result)
+int32_t HidumpHelper::ShowAllTaskInfo(std::string &result)
+{
+    DHLOGI("GetAllAllTaskInfos  Dump.");
+    std::unordered_map<std::string, std::shared_ptr<Task>> tasks;
+    TaskBoard::GetInstance().DumpAllTask(tasks);
+
+    result.append("All TaskInfos:\n");
+    
+    for (auto task : tasks) {
+        // std::string taskId = task.GetId();
+        // std::string task.GetNetworkId();
+        // std::string task.GetUUID();
+        result.append(TAB);
+        result.append(" TaskType :");
+        TaskType taskType = task.GetTaskType();
+        result.append(" DHType :");
+        result.append(g_mapDhTypeName[task.GetDhType()]);
+        // std::string dhId = 
+        result.append(" DHId :");
+        result.append(GetAnonyString(task.GetDhId()));
+
+        // TaskState taskState = GetTaskState();
+        result.append(" TaskState :");
+        result.append(g_mapTaskState[GetTaskState()]);
+        std::vector<TaskStep> taskStep = GetTaskSteps();
+
+
+    }
+}
+
+int32_t HidumpHelper::ShowHelp(std::string &result)
 {
     DHLOGI("ShowHelp  Dump.");
     result.append("Usage:dump  <options>\n")
@@ -217,7 +273,7 @@ int32_t DHHidumpHelper::ShowHelp(std::string &result)
     return DH_SUCCESS;
 }
 
-void DHHidumpHelper::ShowIllealInfomation(std::string &result)
+void HidumpHelper::ShowIllealInfomation(std::string &result)
 {
     DHLOGI("ShowIllealInfomation  Dump.");
     result.append("unrecognized option, -h for help");

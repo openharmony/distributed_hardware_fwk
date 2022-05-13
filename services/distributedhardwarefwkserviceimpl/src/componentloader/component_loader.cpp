@@ -22,8 +22,8 @@
 #include "nlohmann/json.hpp"
 
 #include "constants.h"
-#include "dh_hidump_helper.h"
 #include "distributed_hardware_log.h"
+#include "hidump_helper.h"
 
 using nlohmann::json;
 
@@ -178,7 +178,7 @@ int32_t ComponentLoader::GetHardwareHandler(const DHType dhType, IHardwareHandle
         return ERR_DH_FWK_LOADER_HANDLER_IS_NULL;
     }
     hardwareHandlerPtr = getHardwareClassHandler();
-    DHHidumpHelper::GetInstance().DumpLoadedComps(dhType);
+    HidumpHelper::GetInstance().DumpLoadedComps(dhType);
     return DH_FWK_SUCCESS;
 }
 
@@ -278,7 +278,7 @@ int32_t ComponentLoader::UnInit()
         ret += ReleaseSource(iter->first);
         ret += ReleaseSink(iter->first);
 
-        DHHidumpHelper::GetInstance()::DumpUnloadedComps(iter->first);
+        HidumpHelper::GetInstance()::DumpUnloadedComps(iter->first);
     }
     compHandlerMap_.clear();
     return ret;

@@ -29,6 +29,7 @@ ohos_shared_library("distributedhardwarefwksvr_impl") {
     "include/utils",
     "include/localhardwaremanager",
     "include/resourcemanager",
+    "include/hidumphelper",
     "${common_path}/log/include",
     "${common_path}/utils/include",
     "${utils_path}/include",
@@ -59,6 +60,7 @@ ohos_shared_library("distributedhardwarefwksvr_impl") {
     "src/task/task_factory.cpp",
     "src/utils/dh_context.cpp",
     "src/versionmanager/version_manager.cpp",
+    "hidump_helper.cpp",
   ]
 
   deps = [

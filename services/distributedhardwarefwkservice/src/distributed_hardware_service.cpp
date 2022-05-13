@@ -23,9 +23,9 @@
 #include "system_ability_definition.h"
 
 #include "access_manager.h"
-#include "dh_hidump_helper.h"
 #include "distributed_hardware_errno.h"
 #include "distributed_hardware_log.h"
+#include "hidump_helper.h"
 
 namespace OHOS {
 namespace DistributedHardware {
@@ -93,20 +93,17 @@ int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16strin
         argsStr.emplace_back(Str16ToStr8(item));
     }
 
+    int ret = AccessManager::GetInstance()->Dump(argsStr, result)) 
+    if (ret != DH_FWK_SUCCESS){
+        DHLOGE("Dump error, ret = %d", ret);
+    }
 
-        if (!AccessManager::GetInstance()->Dump(argsStr, result)) {
-            DHLOGE("Hidump error");
-            return ERR_DH_SCREEN_HIDUMP_ERROR;
-        }
+    if (dprintf(fd, "%s\n", result.c_str()) < 0) {
+        DHLOGE("Hidump dprintf error");
+        ret = ERR_DH_FWK_HIDUMP_DPRINTF_ERROR;
+    }
 
-        int ret = dprintf(fd, "%s\n", result.c_str());
-        if (ret < 0) {
-            DHLOGE("dprintf error");
-        }
-
-
-
-    return DH_FWK_SUCCESS;
+    return ret;
 }
 } // namespace DistributedHardware
 } // namespace OHOS

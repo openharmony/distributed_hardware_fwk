@@ -93,7 +93,7 @@ namespace DistributedHardware {
     /* Hidump errno, range: [-11000, -11000] */
     constexpr int32_t ERR_DH_FWK_HIDUMP_ERROR = -11000;
     constexpr int32_t ERR_DH_FWK_HIDUMP_INVALID_ARGS = -11001;
-    constexpr int32_t ERR_DH_FWK_HIDUMP_UNKONW = 11002;
+    constexpr int32_t ERR_DH_FWK_HIDUMP_DPRINTF_ERROR = -11002;
 } // namespace DistributedHardware
 } // namespace OHOS
 #endif
