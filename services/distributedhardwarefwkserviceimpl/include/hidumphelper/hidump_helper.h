@@ -19,57 +19,46 @@
 #include <set>
 #include <string>
 
+#include "enabled_comps_dump.h"
 #include "device_type.h"
+#include "single_instance.h"
 #include "task.h"
 
 namespace OHOS {
 namespace DistributedHardware {
 
+// class HidumpDeviceInfo {
+// public:
+//     HidumpDeviceInfo()
+//     std::string dhId_;
+//     DHType dhType_;
 
-// struct HidumpParam {
-//     HidumpFlag hidumpFlag = HidumpFlag::UNKNOW;
-//     std::string args;
-// };
-
-struct HidumpDeviceInfo {
-    std::string dhId_;
-    DHType dhType_;
-
-    bool operator <(const DHInfo& other) const {
-        return ((this->dhId < other.dhId) || (this->dhType < other.dhType));
-    }
-};
-
-// enum class HidumpTaskType : int32_t {
-//     UNKNOWN = 0,
-//     ENABLE = 1,
-//     DISABLE = 2,
-//     ON_LINE = 3,
-//     OFF_LINE = 4
+//     bool operator == (const DHInfo& other) const {
+//         return ((this->dhId == other.dhId) && (this->dhType == other.dhType));
+//     }
+// private:
+//     std::string dhId_;
+//     DHType dhType_;
 // };
 
 class HidumpHelper {
 DECLARE_SINGLE_INSTANCE_BASE(HidumpHelper);
 public:
     int32_t Dump(const std::vector<std::string>& args, std::string &result);
-
-    void DumpLoadedComps(const DHType dhType);
-    void DumpUnloadedComps(const DHType dhType);
-    void DumpEnabledComps(const DHType dhType, const std::string &dhId);
-    void DumpDisabledComps(const DHType dhType, const std::string &dhId);
+    // void DumpLoadedComps(const DHType dhType);
+    // void DumpUnloadedComps(const DHType dhType);
 
 private:
     explicit HidumpHelper() = default;
     ~HidumpHelper() = default;
-    int32_t ProcessOneParam(const std::string& args, std::string &result);
+
+    // int32_t ProcessOneParam(const std::string& args, std::string &result);
+    int32_t ProcessDump(const HidumpParam& hidumpParam, std::string &result);
     void ShowHelp(std::string &result);
     void ShowIllealInfomation(std::string &result);
-    int32_t ProcessDump(const HidumpParam& hidumpParam, std::string &result);
 
-
-private:
-    // std::set<DHType> loadedCompsSet_;
-    std::set<HidumpDeviceInfo> deviceInfoSet_;
+// private:
+//     std::set<HidumpDeviceInfo> deviceInfoSet_;
 };
 
 } // namespace DistributedHardware

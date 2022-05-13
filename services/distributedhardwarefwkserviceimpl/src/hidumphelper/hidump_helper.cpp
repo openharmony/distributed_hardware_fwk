@@ -75,23 +75,22 @@ std::unordered_map<TaskStep, std::string> g_mapTaskStep = {
     { TaskStep::WAIT_UNREGISTGER_COMPLET, "WAIT_UNREGISTGER_COMPLET" },
 };
 
-// enum class TaskState : int32_t {
 const std::unordered_map<TaskState, std::string> g_mapTaskState = {
     { TaskState::INIT, "INIT" },
     { TaskState::RUNNING, "RUNNING" },
     { TaskState::SUCCESS, "SUCCESS" },
-    { TaskState::FAI, "FAI" },
+    { TaskState::FAI, "FAILL" },
 };
 }
 
 int32_t HidumpHelper::Dump(const std::vector<std::string>& args, std::string &result)
 {
-    DHLOGI("DHfwkHidumpHelper Dump args.size():%d.", args.size());
+    DHLOGI("HidumpHelper Dump args.size():%d.", args.size());
     result.clear();
     int32_t errCode = DH_SUCCESS;
     int32_t argsSize = static_cast<int32_t>(args.size());
     for (int i = 0; i < args.size(); i++) {
-        DHLOGI("DHfwkHidumpHelper Dump args[%d]: %s.", i, args.at(i).c_str());
+        DHLOGI("HidumpHelper Dump args[%d]: %s.", i, args.at(i).c_str());
     }
     switch (argsSize) {
         case MIN_ARGS_SIZE: {
@@ -195,6 +194,7 @@ void HidumpHelper::ShowAllLoadCompTypes(std::string &result)
     result.replce(result.size() - SEPARATOR.size(), SEPARATOR.size(), " \n\n");
 }
 
+/*
 void HidumpHelper::DumpEnabledComps(const DHType dhType, const std::string &dhId)
 {
     HidumpDeviceInfo info = {
@@ -215,13 +215,16 @@ void HidumpHelper::DumpDisabledComps(const DHType dhType, const std::string &dhI
         deviceInfoSet_.earse(it);
     }
 }
+*/
 
 int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
 {
     DHLOGI("GetAllEnabledComps  Dump.");
+    std::set<HidumpCompInfo> deviceInfoSet;
+    EnabledCompsDump::GetInstance.Dump(deviceInfoSet);
     result.append("Enabled Components:\n");
     result.append(TAB);
-    for (auto info : enabledDeviceInfoSet_) {
+    for (auto info : deviceInfoSet) {
         result.append(" DHType :");
         result.append(g_mapDhTypeName[info.dhType_]);
         result.append(" DHId :");
@@ -238,7 +241,7 @@ int32_t HidumpHelper::ShowAllTaskInfo(std::string &result)
     std::unordered_map<std::string, std::shared_ptr<Task>> tasks;
     TaskBoard::GetInstance().DumpAllTask(tasks);
 
-    result.append("All TaskInfos:\n");
+    result.append("All Task Infos:\n");
     
     for (auto task : tasks) {
         // std::string taskId = task.GetId();
@@ -246,7 +249,8 @@ int32_t HidumpHelper::ShowAllTaskInfo(std::string &result)
         // std::string task.GetUUID();
         result.append(TAB);
         result.append(" TaskType :");
-        TaskType taskType = task.GetTaskType();
+        // TaskType taskType = task.GetTaskType();
+        result.append(g_mapTaskType[task.GetTaskType()]);
         result.append(" DHType :");
         result.append(g_mapDhTypeName[task.GetDhType()]);
         // std::string dhId = 
@@ -256,10 +260,16 @@ int32_t HidumpHelper::ShowAllTaskInfo(std::string &result)
         // TaskState taskState = GetTaskState();
         result.append(" TaskState :");
         result.append(g_mapTaskState[GetTaskState()]);
+
+        result.append(" TaskStep :[ ");
         std::vector<TaskStep> taskStep = GetTaskSteps();
-
-
+        for (auto step : taskStep) {
+            result.append(g_mapTaskStep[step]);
+            result.append(" ");
+        }
+        result.append("]\n");
     }
+    result.append("\n");
 }
 
 int32_t HidumpHelper::ShowHelp(std::string &result)
