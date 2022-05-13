@@ -535,5 +535,11 @@ int32_t CapabilityInfoManager::GetDataByKeyPrefix(const std::string &keyPrefix, 
     }
     return DH_FWK_SUCCESS;
 }
+
+void CapabilityInfoManager::DumpCapabilityInfos(CapabilityInfoMap &capInfoMap)
+{
+    capInfoMap = globalCapInfoMap_;
+}
+
 } // namespace DistributedHardware
 } // namespace OHOS

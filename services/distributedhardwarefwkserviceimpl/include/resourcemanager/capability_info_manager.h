@@ -93,6 +93,8 @@ public:
     /* EventBus async processing callback */
     void OnEvent(CapabilityInfoEvent &e) override;
 
+    void DumpCapabilityInfos(CapabilityInfoMap &capInfoMap);
+
 private:
     CapabilityInfoManager();
     void HandleCapabilityAddChange(const std::vector<DistributedKv::Entry> &insertRecords);

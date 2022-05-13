@@ -19,6 +19,7 @@
 
 #include "capability_info_manager.h"
 #include "distributed_hardware_log.h"
+#include "task_board.h"
 
 namespace OHOS {
 namespace DistributedHardware {
@@ -31,12 +32,6 @@ const std::string SEPARATOR = " | ";
 const std::string TAB = "    ";
 const std::string ARGS_HELP = "-h";
 const std::string LOADED_COMP_LIST = "-loaded-list";
-
-enum class HidumpFlag {
-    UNKNOW = 0,
-    GET_HELP,
-    GET_LOADED_COMP_LIST,
-};
 
 std::unordered_map<std::string, HidumpFlag> g_mapArgs = {
     { ARGS_HELP, HidumpFlag::GET_HELP },
@@ -122,7 +117,7 @@ int32_t HidumpHelper::Dump(const std::vector<std::string>& args, std::string &re
     return errCode;
 }
 
-int32_t HidumpHelper::ProcessDump(const HidumpFlag& flag, std::string &result)
+int32_t HidumpHelper::ProcessDump(const HidumpFlag &flag, std::string &result)
 {
     DHLOGI("ProcessDump  Dump.");
     result.clear();
@@ -171,13 +166,13 @@ int32_t HidumpHelper::ShowAllLoadCompTypes(std::string &result)
 }
 */
 
-void HidumpHelper::ShowAllLoadCompTypes(std::string &result)
+void HidumpHelper::ShowAllLoadedCompTypes(std::string &result)
 {
+    DHLOGI("Dump AllLoadedCompTypes.");
     std::set<DHType> loadedCompSource;
     std::set<DHType> loadedCompSink;
     ComponentManager::GetInstance().DumpLoadedComps(loadedCompSource, loadedCompSink);
 
-    DHLOGI("GetAllLoadCompTypes  Dump.");
     result.append("Local Loaded Components:\n");
     result.append("    Source: ");
     for (auto compSource : loadedCompSource) {
@@ -217,9 +212,9 @@ void HidumpHelper::DumpDisabledComps(const DHType dhType, const std::string &dhI
 }
 */
 
-int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
+void HidumpHelper::ShowAllEnabledComps(std::string &result)
 {
-    DHLOGI("GetAllEnabledComps  Dump.");
+    DHLOGI("Dump AllEnabledComps.");
     std::set<HidumpCompInfo> deviceInfoSet;
     EnabledCompsDump::GetInstance.Dump(deviceInfoSet);
     result.append("Enabled Components:\n");
@@ -235,9 +230,9 @@ int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
     return DH_SUCCESS;
 }
 
-int32_t HidumpHelper::ShowAllTaskInfo(std::string &result)
+int32_t HidumpHelper::ShowAllTaskInfos(std::string &result)
 {
-    DHLOGI("GetAllAllTaskInfos  Dump.");
+    DHLOGI("Dump AllTaskInfos.");
     std::unordered_map<std::string, std::shared_ptr<Task>> tasks;
     TaskBoard::GetInstance().DumpAllTask(tasks);
 
@@ -272,7 +267,34 @@ int32_t HidumpHelper::ShowAllTaskInfo(std::string &result)
     result.append("\n");
 }
 
-int32_t HidumpHelper::ShowHelp(std::string &result)
+void HidumpHelper::ShowAllCapabilityInfos(std::string &result)
+{
+    DHLOGI("GetAllAllCapabilityInfos  Dump.");
+    // std::map<std::string, std::shared_ptr<CapabilityInfo>>;
+    CapabilityInfoMap capInfoMap;
+    CapabilityInfoManager::GetInstance()->DumpCapabilityInfos(capInfoMap);
+    
+    result.append("All Capability Infos:\n");
+    for (auto info : capInfoMap) {
+        result.append(TAB);
+        result.append(" DeviceName :");
+        result.append(GetAnonyString(info->GetDeviceName()));
+        result.append(" DeviceId :");
+        result.append(GetAnonyString(info->GetDeviceId()));        
+        result.append(" DeviceType :");
+        result.append(std::string(GetDeviceType()));
+        result.append(" DHType :");
+        result.append(g_mapDhTypeName[info->GetDhType()]);
+        result.append(" DHId :");
+        result.append(GetAnonyString(info->GetDHId()));
+        result.append(" DHAttrs :");
+        result.append(GetAnonyString(info->GetDHAttrs()));
+        result.append("\n");
+    }
+    result.append("\n");
+}
+
+void HidumpHelper::ShowHelp(std::string &result)
 {
     DHLOGI("ShowHelp  Dump.");
     result.append("Usage:dump  <options>\n")

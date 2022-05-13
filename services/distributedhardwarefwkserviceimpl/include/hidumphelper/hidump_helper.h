@@ -22,43 +22,31 @@
 #include "enabled_comps_dump.h"
 #include "device_type.h"
 #include "single_instance.h"
-#include "task.h"
 
 namespace OHOS {
 namespace DistributedHardware {
-
-// class HidumpDeviceInfo {
-// public:
-//     HidumpDeviceInfo()
-//     std::string dhId_;
-//     DHType dhType_;
-
-//     bool operator == (const DHInfo& other) const {
-//         return ((this->dhId == other.dhId) && (this->dhType == other.dhType));
-//     }
-// private:
-//     std::string dhId_;
-//     DHType dhType_;
-// };
+enum class HidumpFlag {
+    UNKNOW = 0,
+    GET_HELP,
+    GET_LOADED_COMP_LIST,
+};
 
 class HidumpHelper {
 DECLARE_SINGLE_INSTANCE_BASE(HidumpHelper);
 public:
     int32_t Dump(const std::vector<std::string>& args, std::string &result);
-    // void DumpLoadedComps(const DHType dhType);
-    // void DumpUnloadedComps(const DHType dhType);
 
 private:
     explicit HidumpHelper() = default;
     ~HidumpHelper() = default;
 
-    // int32_t ProcessOneParam(const std::string& args, std::string &result);
-    int32_t ProcessDump(const HidumpParam& hidumpParam, std::string &result);
+    int32_t ProcessDump(const HidumpFlag &flag, std::string &result);
+    void ShowAllLoadedCompTypes(std::string &result);
+    void ShowAllEnabledComps(std::string &result);
+    void ShowAllTaskInfos(std::string &result);
+    void ShowAllCapabilityInfos(std::string &result);
     void ShowHelp(std::string &result);
     void ShowIllealInfomation(std::string &result);
-
-// private:
-//     std::set<HidumpDeviceInfo> deviceInfoSet_;
 };
 
 } // namespace DistributedHardware
