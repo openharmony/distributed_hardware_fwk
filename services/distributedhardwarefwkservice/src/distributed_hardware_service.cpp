@@ -86,6 +86,7 @@ int32_t DistributedHardwareService::QuerySinkVersion(std::unordered_map<DHType, 
 int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16string>& args)
 {
     DHLOGI("DistributedHardwareService  Dump.");
+    dprintf(fd, "DistributedHardwareService::Dump");
     std::string result;
     std::vector<std::string> argsStr;
     for (auto item : args) {

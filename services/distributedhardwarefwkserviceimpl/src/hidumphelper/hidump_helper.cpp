@@ -258,7 +258,7 @@ int32_t HidumpHelper::ShowAllCapabilityInfos(std::string &result)
 
 int32_t HidumpHelper::ShowHelp(std::string &result)
 {
-    DHLOGI("ShowHelp  Dump.");
+    DHLOGI("Show Dump Help.");
     result.append("Usage:dump  <options>\n");
     result.append("Description:\n");
     result.append("-h    ");
