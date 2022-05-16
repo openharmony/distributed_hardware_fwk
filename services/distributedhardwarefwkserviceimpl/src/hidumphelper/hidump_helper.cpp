@@ -33,10 +33,10 @@ const int32_t FIRST_PARAM = 0;
 const std::string SEPARATOR = " | ";
 const std::string TAB = "    ";
 const std::string ARGS_HELP = "-h";
-const std::string LOADED_COMP_LIST = "-loaded-list";
-const std::string ENABLED_COMP_LIST = "-enabled-list";
-const std::string TASK_LIST = "-task-list";
-const std::string CAPABILITY_LIST = "-capability-list";
+const std::string LOADED_COMP_LIST = "-l";
+const std::string ENABLED_COMP_LIST = "-e";
+const std::string TASK_LIST = "-t";
+const std::string CAPABILITY_LIST = "-c";
 
 std::unordered_map<std::string, HidumpFlag> g_mapArgs = {
     { ARGS_HELP, HidumpFlag::GET_HELP },
@@ -259,10 +259,18 @@ int32_t HidumpHelper::ShowAllCapabilityInfos(std::string &result)
 int32_t HidumpHelper::ShowHelp(std::string &result)
 {
     DHLOGI("ShowHelp  Dump.");
-    result.append("Usage:dump  <options>\n")
-          .append("Description:\n")
-          .append("-loaded-comp-list    ")
-          .append(": Show loaded components\n");
+    result.append("Usage:dump  <options>\n");
+    result.append("Description:\n");
+    result.append("-h    ");
+    result.append(": Show help\n");;
+    result.append("-l    ");
+    result.append(": Show all loaded components\n");
+    result.append("-e    ");
+    result.append(": Show all enabled components\n");
+    result.append("-t    ");
+    result.append(": Show all task\n");
+    result.append("-c    ");
+    result.append(": Show all capability infos\n");
 
     return DH_FWK_SUCCESS;
 }
