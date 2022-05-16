@@ -45,6 +45,8 @@ public:
     int32_t Disable(const std::string &networkId, const std::string &uuid, const std::string &dhId,
         const DHType dhType);
 
+    void DumpLoadedComps(std::set<DHType> &compSourceType, std::set<DHType> &compSinkType);
+
 private:
     enum class Action : int32_t {
         START_SOURCE,
@@ -69,8 +71,6 @@ private:
     std::string GetVersionFromCache(const std::string &uuid, DHType dhType);
     int32_t UpdateVersionCache(const std::string &networkId, const std::string &uuid);
     sptr<IDistributedHardware> GetRemoteDHMS(const std::string &networkId) const;
-
-    void DumpLoadedComps(std::set<DHType> &compSourceType, std::set<DHType> &compSinkType);
 
 private:
     std::map<DHType, IDistributedHardwareSource*> compSource_;

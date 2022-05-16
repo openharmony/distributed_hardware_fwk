@@ -178,7 +178,6 @@ int32_t ComponentLoader::GetHardwareHandler(const DHType dhType, IHardwareHandle
         return ERR_DH_FWK_LOADER_HANDLER_IS_NULL;
     }
     hardwareHandlerPtr = getHardwareClassHandler();
-    HidumpHelper::GetInstance().DumpLoadedComps(dhType);
     return DH_FWK_SUCCESS;
 }
 
@@ -277,8 +276,6 @@ int32_t ComponentLoader::UnInit()
         ret += ReleaseHardwareHandler(iter->first);
         ret += ReleaseSource(iter->first);
         ret += ReleaseSink(iter->first);
-
-        HidumpHelper::GetInstance()::DumpUnloadedComps(iter->first);
     }
     compHandlerMap_.clear();
     return ret;

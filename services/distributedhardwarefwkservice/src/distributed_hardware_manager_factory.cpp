@@ -214,7 +214,5 @@ int32_t DistributedHardwareManagerFactory::Dump(const std::vector<std::string> a
     }
     return distributedHardwareMgrPtr_->Dump(argsStr, result);
 }
-}
-
 } // namespace DistributedHardware
 } // namespace OHOS

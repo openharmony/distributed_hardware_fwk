@@ -25,7 +25,7 @@ void EnabledCompsDump::DumpEnabledComp(const DHType dhType, const std::string &d
         .dhId_ = dhId,
         .dhType_ = dhType,
     };
-    deviceInfoSet_.emplace(info);
+    compInfoSet_.emplace(info);
 }
 
 void EnabledCompsDump::DumpDisabledComp(const DHType dhType, const std::string &dhId)
@@ -34,15 +34,15 @@ void EnabledCompsDump::DumpDisabledComp(const DHType dhType, const std::string &
         .dhId_ = dhId,
         .dhType_ = dhType,
     };
-    auto it = deviceInfoSet_.find(info);
-    if (it != deviceInfoSet_.end()) {
-        deviceInfoSet_.erase(it);
+    auto it = compInfoSet_.find(info);
+    if (it != compInfoSet_.end()) {
+        compInfoSet_.erase(it);
     }
 }
 
-void EnabledCompsDump::Dump(std::set<HidumpCompInfo> &deviceInfoSet)
+void EnabledCompsDump::Dump(std::set<HidumpCompInfo> &compInfoSet)
 {
-    deviceInfoSet = deviceInfoSet_;
+    compInfoSet = compInfoSet_;
 }
 } // namespace DistributedHardware
 } // namespace OHOS

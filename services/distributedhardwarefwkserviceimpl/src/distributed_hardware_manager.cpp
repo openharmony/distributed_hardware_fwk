@@ -23,6 +23,7 @@
 #include "dh_utils_tool.h"
 #include "distributed_hardware_errno.h"
 #include "distributed_hardware_log.h"
+#include "hidump_helper.h"
 #include "local_hardware_manager.h"
 #include "task_board.h"
 #include "task_executor.h"
@@ -179,7 +180,7 @@ int32_t DistributedHardwareManager::GetComponentVersion(std::unordered_map<DHTyp
 
 int32_t DistributedHardwareManager::Dump(const std::vector<std::string> argsStr, std::string result)
 {
-    
+    return HidumpHelper::GetInstance().Dump(argsStr, result);
 }
 } // namespace DistributedHardware
 } // namespace OHOS

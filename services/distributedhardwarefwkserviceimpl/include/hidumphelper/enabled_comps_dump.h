@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef OHOS_DISTRIBUTED_HARDWARE_HIDUMP_HELPER_H
-#define OHOS_DISTRIBUTED_HARDWARE_HIDUMP_HELPER_H
+#ifndef OHOS_DISTRIBUTED_ENABLED_COMPS_DUMP_H
+#define OHOS_DISTRIBUTED_ENABLED_COMPS_DUMP_H
 #include <cstdint>
 #include <set>
 #include <string>
@@ -30,8 +30,8 @@ struct HidumpCompInfo {
     DHType dhType_;
 
     bool operator < (const HidumpCompInfo &other) const {
-        return ((this->dhType_ < other.dhType_) ||
-            (this->dhType_ == other.dhType_) && (this->dhId_ < other.dhId_));
+        return (((this->dhType_ == other.dhType_) && (this->dhId_ < other.dhId_)) ||
+            (this->dhType_ < other.dhType_));
     }
 };
 
@@ -41,13 +41,13 @@ public:
     void DumpEnabledComp(const DHType dhType, const std::string &dhId);
     void DumpDisabledComp(const DHType dhType, const std::string &dhId);
 
-    void Dump(std::set<HidumpCompInfo> &deviceInfoSet);
+    void Dump(std::set<HidumpCompInfo> &compInfoSet);
 
 private:
     explicit EnabledCompsDump() = default;
     ~EnabledCompsDump() = default;
 
-    std::set<HidumpCompInfo> deviceInfoSet_;
+    std::set<HidumpCompInfo> compInfoSet_;
 };
 
 } // namespace DistributedHardware

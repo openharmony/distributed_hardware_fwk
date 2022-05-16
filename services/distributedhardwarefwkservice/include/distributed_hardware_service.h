@@ -21,7 +21,6 @@
 
 #include "distributed_hardware_stub.h"
 #include "single_instance.h"
-#include "dhfwksa_hidump_helper.h"
 
 namespace OHOS {
 namespace DistributedHardware {

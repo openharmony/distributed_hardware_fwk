@@ -25,7 +25,6 @@
 #include "access_manager.h"
 #include "distributed_hardware_errno.h"
 #include "distributed_hardware_log.h"
-#include "hidump_helper.h"
 
 namespace OHOS {
 namespace DistributedHardware {
@@ -93,7 +92,7 @@ int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16strin
         argsStr.emplace_back(Str16ToStr8(item));
     }
 
-    int ret = AccessManager::GetInstance()->Dump(argsStr, result)) 
+    int ret = AccessManager::GetInstance()->Dump(argsStr, result);
     if (ret != DH_FWK_SUCCESS){
         DHLOGE("Dump error, ret = %d", ret);
     }

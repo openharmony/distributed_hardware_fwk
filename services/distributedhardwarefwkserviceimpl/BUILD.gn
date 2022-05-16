@@ -60,7 +60,9 @@ ohos_shared_library("distributedhardwarefwksvr_impl") {
     "src/task/task_factory.cpp",
     "src/utils/dh_context.cpp",
     "src/versionmanager/version_manager.cpp",
-    "hidump_helper.cpp",
+    "src/hidumphelper/enabled_comps_dump.cpp",
+    "src/hidumphelper/hidump_helper.cpp",
+
   ]
 
   deps = [

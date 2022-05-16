@@ -167,7 +167,7 @@ void AccessManager::SendTrustedDeviceOnline()
     }
 }
 
-int32_t AccessManager:Dump(const std::vector<std::string> argsStr, std::string result)
+int32_t AccessManager::Dump(const std::vector<std::string> argsStr, std::string result)
 {
     return DistributedHardwareManagerFactory::GetInstance().Dump(argsStr, result);
 }

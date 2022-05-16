@@ -29,6 +29,9 @@ enum class HidumpFlag {
     UNKNOW = 0,
     GET_HELP,
     GET_LOADED_COMP_LIST,
+    GET_ENABLED_COMP_LIST,
+    GET_TASK_LIST,
+    GET_CAPABILITY_LIST,
 };
 
 class HidumpHelper {
@@ -41,12 +44,12 @@ private:
     ~HidumpHelper() = default;
 
     int32_t ProcessDump(const HidumpFlag &flag, std::string &result);
-    void ShowAllLoadedCompTypes(std::string &result);
-    void ShowAllEnabledComps(std::string &result);
-    void ShowAllTaskInfos(std::string &result);
-    void ShowAllCapabilityInfos(std::string &result);
-    void ShowHelp(std::string &result);
-    void ShowIllealInfomation(std::string &result);
+    int32_t ShowAllLoadedComps(std::string &result);
+    int32_t ShowAllEnabledComps(std::string &result);
+    int32_t ShowAllTaskInfos(std::string &result);
+    int32_t ShowAllCapabilityInfos(std::string &result);
+    int32_t ShowHelp(std::string &result);
+    int32_t ShowIllealInfomation(std::string &result);
 };
 
 } // namespace DistributedHardware
