@@ -540,6 +540,5 @@ void CapabilityInfoManager::DumpCapabilityInfos(CapabilityInfoMap &capInfoMap)
 {
     capInfoMap = globalCapInfoMap_;
 }
-
 } // namespace DistributedHardware
 } // namespace OHOS

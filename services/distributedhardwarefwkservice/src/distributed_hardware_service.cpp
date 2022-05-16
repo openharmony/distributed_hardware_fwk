@@ -94,7 +94,7 @@ int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16strin
     }
 
     int ret = AccessManager::GetInstance()->Dump(argsStr, result);
-    if (ret != DH_FWK_SUCCESS){
+    if (ret != DH_FWK_SUCCESS) {
         DHLOGE("Dump error, ret = %d", ret);
     }
 

@@ -24,12 +24,12 @@
 
 namespace OHOS {
 namespace DistributedHardware {
-
 struct HidumpCompInfo {
     std::string dhId_;
     DHType dhType_;
 
-    bool operator < (const HidumpCompInfo &other) const {
+    bool operator < (const HidumpCompInfo &other) const
+    {
         return (((this->dhType_ == other.dhType_) && (this->dhId_ < other.dhId_)) ||
             (this->dhType_ < other.dhType_));
     }
@@ -47,9 +47,9 @@ private:
     explicit EnabledCompsDump() = default;
     ~EnabledCompsDump() = default;
 
+private:
     std::set<HidumpCompInfo> compInfoSet_;
 };
-
 } // namespace DistributedHardware
 } // namespace OHOS
 #endif

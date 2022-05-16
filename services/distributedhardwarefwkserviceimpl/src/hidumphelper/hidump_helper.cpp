@@ -42,8 +42,8 @@ std::unordered_map<std::string, HidumpFlag> g_mapArgs = {
     { ARGS_HELP, HidumpFlag::GET_HELP },
     { LOADED_COMP_LIST, HidumpFlag::GET_LOADED_COMP_LIST },
     { ENABLED_COMP_LIST, HidumpFlag::GET_ENABLED_COMP_LIST },
-    { TASK_LIST , HidumpFlag::GET_TASK_LIST },
-    { CAPABILITY_LIST , HidumpFlag::GET_CAPABILITY_LIST },
+    { TASK_LIST, HidumpFlag::GET_TASK_LIST },
+    { CAPABILITY_LIST, HidumpFlag::GET_CAPABILITY_LIST },
 };
 
 std::unordered_map<DHType, std::string> g_mapDhTypeName = {
@@ -262,7 +262,7 @@ int32_t HidumpHelper::ShowHelp(std::string &result)
     result.append("Usage:dump  <options>\n");
     result.append("Description:\n");
     result.append("-h    ");
-    result.append(": Show help\n");;
+    result.append(": Show help\n");
     result.append("-l    ");
     result.append(": Show all loaded components\n");
     result.append("-e    ");
