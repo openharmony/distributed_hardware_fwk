@@ -32,7 +32,7 @@ public:
     size_t GetOnLineCount() override;
     int32_t GetComponentVersion(std::unordered_map<DHType, std::string> &versionMap) override;
 
-    int32_t Dump(const std::vector<std::string> argsStr, std::string result) override;
+    int32_t Dump(const std::vector<std::string> &argsStr, std::string &result) override;
 };
 } // namespace DistributedHardware
 } // namespace OHOS

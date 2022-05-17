@@ -27,18 +27,13 @@ namespace OHOS {
 namespace DistributedHardware {
 IMPLEMENT_SINGLE_INSTANCE(HidumpHelper);
 namespace {
-const int32_t MIN_ARGS_SIZE = 0;
-const int32_t MAX_ARGS_SIZE = 1;
-const int32_t FIRST_PARAM = 0;
-const std::string SEPARATOR = " | ";
-const std::string TAB = "    ";
 const std::string ARGS_HELP = "-h";
 const std::string LOADED_COMP_LIST = "-l";
 const std::string ENABLED_COMP_LIST = "-e";
 const std::string TASK_LIST = "-t";
 const std::string CAPABILITY_LIST = "-c";
 
-std::unordered_map<std::string, HidumpFlag> g_mapArgs = {
+const std::unordered_map<std::string, HidumpFlag> MAP_ARGS = {
     { ARGS_HELP, HidumpFlag::GET_HELP },
     { LOADED_COMP_LIST, HidumpFlag::GET_LOADED_COMP_LIST },
     { ENABLED_COMP_LIST, HidumpFlag::GET_ENABLED_COMP_LIST },
@@ -90,43 +85,25 @@ int32_t HidumpHelper::Dump(const std::vector<std::string>& args, std::string &re
 {
     DHLOGI("HidumpHelper Dump args.size():%d.", args.size());
     result.clear();
-    int32_t errCode = DH_FWK_SUCCESS;
-    int32_t argsSize = static_cast<int32_t>(args.size());
-    switch (argsSize) {
-        case MIN_ARGS_SIZE: {
-            errCode = ProcessDump(HidumpFlag::GET_HELP, result);
-            break;
-        }
-        case MAX_ARGS_SIZE: {
-            errCode = ProcessDump(g_mapArgs[args[FIRST_PARAM]], result);
-            break;
-        }
-        default: {
-            errCode = ERR_DH_FWK_HIDUMP_INVALID_ARGS;
-            break;
-        }
+    int32_t errCode = ERR_DH_FWK_HIDUMP_ERROR;
+
+    if (args.empty()) {
+        return ProcessDump(HidumpFlag::GET_HELP, result);
     }
 
-    switch (errCode) {
-        case DH_FWK_SUCCESS: {
-            break;
-        }
-        case ERR_DH_FWK_HIDUMP_INVALID_ARGS: {
-            ShowIllealInfomation(result);
-            break;
-        }
-        default: {
-            break;
-        }
+    auto flag = MAP_ARGS.find(args[0]);
+    if ((args.size() > 1) || (flag == MAP_ARGS.end())) {
+        errCode = ProcessDump(HidumpFlag::UNKNOW, result);
+    } else {
+        errCode = ProcessDump(flag->second, result);
     }
+
     return errCode;
 }
-
 
 int32_t HidumpHelper::ProcessDump(const HidumpFlag &flag, std::string &result)
 {
     DHLOGI("ProcessDump  Dump.");
-    result.clear();
     int32_t errCode = ERR_DH_FWK_HIDUMP_ERROR;
     switch (flag) {
         case HidumpFlag::GET_HELP: {
@@ -150,7 +127,7 @@ int32_t HidumpHelper::ProcessDump(const HidumpFlag &flag, std::string &result)
             break;
         }
         default: {
-            errCode = ERR_DH_FWK_HIDUMP_INVALID_ARGS;
+            errCode = ShowIllealInfomation(result);
             break;
         }
     }
@@ -165,38 +142,44 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
     std::set<DHType> loadedCompSink;
     ComponentManager::GetInstance().DumpLoadedComps(loadedCompSource, loadedCompSink);
 
-    result.append("Local Loaded Components:\n");
-    result.append("    Source: ");
+    result.append("Local Loaded Components:\n{");
+    result.append("\n    Source     : [");
     for (auto compSource : loadedCompSource) {
+        result.append(" ");
         result.append(g_mapDhTypeName[compSource]);
-        result.append(SEPARATOR);
+        result.append(",");
     }
-    result.replace(result.size() - SEPARATOR.size(), SEPARATOR.size(), "  \n");
+    result.replace(result.size() - 1, 1, " ");
+    result.append("]");
 
-    result.append("    Sink: ");
+    result.append("\n    Sink       : [");
     for (auto compSink : loadedCompSink) {
+        result.append(" ");
         result.append(g_mapDhTypeName[compSink]);
-        result.append(SEPARATOR);
+        result.append(",");
     }
-    result.replace(result.size() - SEPARATOR.size(), SEPARATOR.size(), " \n\n");
+    result.replace(result.size() - 1, 1, " ");
+    result.append("]");
+    result.append("\n}\n");
     return DH_FWK_SUCCESS;
 }
 
 int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
 {
     DHLOGI("Dump AllEnabledComps.");
-    std::set<HidumpCompInfo> deviceInfoSet;
-    EnabledCompsDump::GetInstance().Dump(deviceInfoSet);
-    result.append("Enabled Components:\n");
-    result.append(TAB);
-    for (auto info : deviceInfoSet) {
-        result.append(" DHType :");
+    std::set<HidumpCompInfo> compInfoSet;
+    EnabledCompsDump::GetInstance().Dump(compInfoSet);
+
+    result.append("Enabled Components:");
+    for (auto info : compInfoSet) {
+        result.append("\n{");
+        result.append("\n    DHType   : ");
         result.append(g_mapDhTypeName[info.dhType_]);
-        result.append(" DHId :");
+        result.append("\n    DHId     : ");
         result.append(GetAnonyString(info.dhId_));
-        result.append(SEPARATOR);
+        result.append("\n},");
     }
-    result.replace(result.size() - SEPARATOR.size(), SEPARATOR.size(), " \n\n");
+    result.replace(result.size() - 1, 1, "\n");
     return DH_FWK_SUCCESS;
 }
 
@@ -204,28 +187,29 @@ int32_t HidumpHelper::ShowAllTaskInfos(std::string &result)
 {
     DHLOGI("Dump AllTaskInfos.");
     std::unordered_map<std::string, std::shared_ptr<Task>> tasks;
-    TaskBoard::GetInstance().DumpAllTask(tasks);
+    TaskBoard::GetInstance().DumpAllTasks(tasks);
 
-    result.append("All Task Infos:\n");
+    result.append("All Task Infos:");
     for (auto task : tasks) {
-        result.append(TAB);
-        result.append(" TaskType :");
+        result.append("\n{");
+        result.append("\n    TaskType   : ");
         result.append(g_mapTaskType[task.second->GetTaskType()]);
-        result.append(" DHType :");
+        result.append("\n    DHType     : ");
         result.append(g_mapDhTypeName[task.second->GetDhType()]);
-        result.append(" DHId :");
+        result.append("\n    DHId       : ");
         result.append(GetAnonyString(task.second->GetDhId()));
-        result.append(" TaskState :");
+        result.append("\n    TaskState  : ");
         result.append(g_mapTaskState[task.second->GetTaskState()]);
-        result.append(" TaskStep :[ ");
+        result.append("\n    TaskStep   : [ ");
         std::vector<TaskStep> taskStep = task.second->GetTaskSteps();
         for (auto step : taskStep) {
             result.append(g_mapTaskStep[step]);
             result.append(" ");
         }
         result.append("]\n");
+        result.append("},");
     }
-    result.append("\n");
+    result.replace(result.size() - 1, 1, "\n");
     return DH_FWK_SUCCESS;
 }
 
@@ -235,24 +219,24 @@ int32_t HidumpHelper::ShowAllCapabilityInfos(std::string &result)
     CapabilityInfoMap capInfoMap;
     CapabilityInfoManager::GetInstance()->DumpCapabilityInfos(capInfoMap);
     
-    result.append("All Capability Infos:\n");
+    result.append("All Capability Infos:");
     for (auto info : capInfoMap) {
-        result.append(TAB);
-        result.append(" DeviceName :");
+        result.append("\n{");
+        result.append("\n    DeviceName     : ");
         result.append(GetAnonyString(info.second->GetDeviceName()));
-        result.append(" DeviceId :");
+        result.append("\n    DeviceId       : ");
         result.append(GetAnonyString(info.second->GetDeviceId()));
-        result.append(" DeviceType :");
+        result.append("\n    DeviceType     : ");
         result.append(std::to_string(info.second->GetDeviceType()));
-        result.append(" DHType :");
+        result.append("\n    DHType         : ");
         result.append(g_mapDhTypeName[info.second->GetDHType()]);
-        result.append(" DHId :");
+        result.append("\n    DHId           : ");
         result.append(GetAnonyString(info.second->GetDHId()));
-        result.append(" DHAttrs :");
-        result.append(GetAnonyString(info.second->GetDHAttrs()));
-        result.append("\n");
+        result.append("\n    DHAttrs        : ");
+        result.append(info.second->GetDHAttrs());
+        result.append("\n},");
     }
-    result.append("\n");
+    result.replace(result.size() - 1, 1, "\n");
     return DH_FWK_SUCCESS;
 }
 
@@ -261,16 +245,16 @@ int32_t HidumpHelper::ShowHelp(std::string &result)
     DHLOGI("Show Dump Help.");
     result.append("Usage:dump  <options>\n");
     result.append("Description:\n");
-    result.append("-h    ");
+    result.append(" -h    ");
     result.append(": Show help\n");
-    result.append("-l    ");
+    result.append(" -l    ");
     result.append(": Show all loaded components\n");
-    result.append("-e    ");
+    result.append(" -e    ");
     result.append(": Show all enabled components\n");
-    result.append("-t    ");
-    result.append(": Show all task\n");
-    result.append("-c    ");
-    result.append(": Show all capability infos\n");
+    result.append(" -t    ");
+    result.append(": Show all tasks\n");
+    result.append(" -c    ");
+    result.append(": Show all capability infos\n\n");
 
     return DH_FWK_SUCCESS;
 }
@@ -278,8 +262,9 @@ int32_t HidumpHelper::ShowHelp(std::string &result)
 int32_t HidumpHelper::ShowIllealInfomation(std::string &result)
 {
     DHLOGI("ShowIllealInfomation  Dump.");
+    result.clear();
     result.append("unrecognized option, -h for help");
-    return DH_FWK_SUCCESS;
+    return ERR_DH_FWK_HIDUMP_INVALID_ARGS;
 }
 } // namespace DistributedHardware
 } // namespace OHOS

@@ -86,7 +86,7 @@ void TaskBoard::RemoveTaskInner(std::string taskId)
     tasks_.erase(taskId);
 }
 
-void TaskBoard::DumpAllTask(std::unordered_map<std::string, std::shared_ptr<Task>> &tasks)
+void TaskBoard::DumpAllTasks(std::unordered_map<std::string, std::shared_ptr<Task>> &tasks)
 {
     tasks = tasks_;
 }

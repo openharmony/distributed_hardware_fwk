@@ -206,7 +206,7 @@ int32_t DistributedHardwareManagerFactory::GetComponentVersion(std::unordered_ma
     return distributedHardwareMgrPtr_->GetComponentVersion(versionMap);
 }
 
-int32_t DistributedHardwareManagerFactory::Dump(const std::vector<std::string> argsStr, std::string result)
+int32_t DistributedHardwareManagerFactory::Dump(const std::vector<std::string> &argsStr, std::string &result)
 {
     if (distributedHardwareMgrPtr_ == nullptr) {
         DHLOGE("distributedHardwareMgr is null");

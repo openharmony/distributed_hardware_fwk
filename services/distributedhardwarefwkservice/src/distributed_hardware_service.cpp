@@ -86,7 +86,6 @@ int32_t DistributedHardwareService::QuerySinkVersion(std::unordered_map<DHType, 
 int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16string>& args)
 {
     DHLOGI("DistributedHardwareService  Dump.");
-    dprintf(fd, "DistributedHardwareService::Dump");
     std::string result;
     std::vector<std::string> argsStr;
     for (auto item : args) {
@@ -98,6 +97,7 @@ int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16strin
         DHLOGE("Dump error, ret = %d", ret);
     }
 
+    DHLOGI("DistributedHardwareService  Dump.");
     if (dprintf(fd, "%s\n", result.c_str()) < 0) {
         DHLOGE("Hidump dprintf error");
         ret = ERR_DH_FWK_HIDUMP_DPRINTF_ERROR;
