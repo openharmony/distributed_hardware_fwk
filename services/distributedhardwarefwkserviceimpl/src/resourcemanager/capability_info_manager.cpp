@@ -321,10 +321,6 @@ void CapabilityInfoManager::OnChange(const DistributedKv::ChangeNotification &ch
     }
 }
 
-void CapabilityInfoManager::OnChange(const DistributedKv::ChangeNotification &changeNotification,
-    std::shared_ptr<DistributedKv::KvStoreSnapshot> snapshot)
-{}
-
 void CapabilityInfoManager::OnEvent(CapabilityInfoEvent &ev)
 {
     switch (ev.GetAction()) {
