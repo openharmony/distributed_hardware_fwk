@@ -34,6 +34,7 @@ public:
     void AddTask(std::shared_ptr<Task> task);
     void RemoveTask(std::string taskId);
     int32_t WaitForALLTaskFinish();
+
     void DumpAllTasks(std::unordered_map<std::string, std::shared_ptr<Task>> &tasks);
 
 private:
