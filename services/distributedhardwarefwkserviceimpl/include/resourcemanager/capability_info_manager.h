@@ -88,8 +88,6 @@ public:
     int32_t ManualSync(const std::string &networkId);
     /* Database data changes callback */
     virtual void OnChange(const DistributedKv::ChangeNotification &changeNotification) override;
-    virtual void OnChange(const DistributedKv::ChangeNotification &changeNotification,
-        std::shared_ptr<DistributedKv::KvStoreSnapshot> snapshot) override;
     /* EventBus async processing callback */
     void OnEvent(CapabilityInfoEvent &e) override;
 
