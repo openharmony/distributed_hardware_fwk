@@ -155,7 +155,7 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
     result.append("]");
 
     result.append("\n    Sink       : [");
-    if (!loadedCompSource.empty()) {
+    if (!loadedCompSink.empty()) {
         for (auto compSink : loadedCompSink) {
             result.append(" ");
             result.append(g_mapDhTypeName[compSink]);
