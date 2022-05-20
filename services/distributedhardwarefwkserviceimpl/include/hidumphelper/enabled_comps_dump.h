@@ -30,8 +30,8 @@ struct HidumpCompInfo {
     std::string dhId_;
     DHType dhType_;
 
-    HidumpCompInfo(std::string deviceId, DHType dhType, std::string dhId) :
-        deviceId_(deviceId), dhId_(dhId), dhType_(dhType) {}
+    HidumpCompInfo(std::string deviceId, DHType dhType, std::string dhId)
+        : deviceId_(deviceId), dhId_(dhId), dhType_(dhType) {}
 
     bool operator < (const HidumpCompInfo &other) const
     {

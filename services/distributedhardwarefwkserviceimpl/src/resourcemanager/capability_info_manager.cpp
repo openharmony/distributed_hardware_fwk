@@ -539,8 +539,7 @@ int32_t CapabilityInfoManager::GetDataByKeyPrefix(const std::string &keyPrefix, 
 void CapabilityInfoManager::DumpCapabilityInfos(std::vector<CapabilityInfo> &capInfos)
 {
     for (auto info : globalCapInfoMap_) {
-        CapabilityInfo capInfo;
-        capInfo = *(info.second);
+        CapabilityInfo capInfo = *(info.second);
         capInfos.emplace_back(capInfo);
     }
 }
