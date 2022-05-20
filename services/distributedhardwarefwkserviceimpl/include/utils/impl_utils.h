@@ -67,6 +67,14 @@ struct TaskParam {
     std::string dhId;
     DHType dhType;
 };
+
+struct TaskDump {
+    std::string id;
+    TaskType taskType;
+    TaskParam taskParm;
+    TaskState taskState;
+    std::vector<TaskStep> taskSteps;
+};
 } // namespace DistributedHardware
 } // namespace OHOS
 #endif

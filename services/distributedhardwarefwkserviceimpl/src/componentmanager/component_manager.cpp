@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2021-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -258,7 +258,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             }
             if (compEnable->Enable(networkId, dhId, param, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("enable success, retryCount = %d", retryCount);
-                EnabledCompsDump::GetInstance().DumpEnabledComp(dhType, dhId);
+                EnabledCompsDump::GetInstance().DumpEnabledComp(uuid, dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
             DHLOGE("enable failed, retryCount = %d", retryCount);
@@ -267,7 +267,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
     }
     DHLOGI("enable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-    EnabledCompsDump::GetInstance().DumpEnabledComp(dhType, dhId);
+    EnabledCompsDump::GetInstance().DumpEnabledComp(uuid, dhType, dhId);
     return result;
 }
 
@@ -289,7 +289,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
             }
             if (compDisable->Disable(networkId, dhId, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("disable success, retryCount = %d", retryCount);
-                EnabledCompsDump::GetInstance().DumpDisabledComp(dhType, dhId);
+                EnabledCompsDump::GetInstance().DumpDisabledComp(uuid, dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
             DHLOGE("disable failed, retryCount = %d", retryCount);
@@ -298,7 +298,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
     }
     DHLOGI("disable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-    EnabledCompsDump::GetInstance().DumpDisabledComp(dhType, dhId);
+    EnabledCompsDump::GetInstance().DumpDisabledComp(uuid, dhType, dhId);
     return result;
 }
 

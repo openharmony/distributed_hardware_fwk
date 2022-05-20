@@ -86,12 +86,13 @@ int32_t DistributedHardwareService::QuerySinkVersion(std::unordered_map<DHType, 
 int DistributedHardwareService::Dump(int32_t fd, const std::vector<std::u16string>& args)
 {
     DHLOGI("DistributedHardwareService  Dump.");
-    std::string result;
-    std::vector<std::string> argsStr;
+    
+    std::vector<std::string> argsStr {};
     for (auto item : args) {
         argsStr.emplace_back(Str16ToStr8(item));
     }
 
+    std::string result("");
     int ret = AccessManager::GetInstance()->Dump(argsStr, result);
     if (ret != DH_FWK_SUCCESS) {
         DHLOGE("Dump error, ret = %d", ret);

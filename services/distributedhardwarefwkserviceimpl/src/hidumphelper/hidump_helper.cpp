@@ -93,7 +93,7 @@ int32_t HidumpHelper::Dump(const std::vector<std::string>& args, std::string &re
 
     auto flag = MAP_ARGS.find(args[0]);
     if ((args.size() > 1) || (flag == MAP_ARGS.end())) {
-        errCode = ProcessDump(HidumpFlag::UNKNOW, result);
+        errCode = ProcessDump(HidumpFlag::UNKNOWN, result);
     } else {
         errCode = ProcessDump(flag->second, result);
     }
@@ -138,8 +138,8 @@ int32_t HidumpHelper::ProcessDump(const HidumpFlag &flag, std::string &result)
 int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
 {
     DHLOGI("Dump all loaded compTypes.");
-    std::set<DHType> loadedCompSource;
-    std::set<DHType> loadedCompSink;
+    std::set<DHType> loadedCompSource {};
+    std::set<DHType> loadedCompSink {};
     ComponentManager::GetInstance().DumpLoadedComps(loadedCompSource, loadedCompSink);
 
     result.append("Local loaded components:\n{");
@@ -167,10 +167,14 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
 int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
 {
     DHLOGI("Dump all enabled comps.");
-    std::set<HidumpCompInfo> compInfoSet;
+    std::set<HidumpCompInfo> compInfoSet {};
     EnabledCompsDump::GetInstance().Dump(compInfoSet);
 
     result.append("All enabled components:");
+    if (compInfoSet.empty()) {
+        return DH_FWK_SUCCESS;
+    }
+
     for (auto info : compInfoSet) {
         result.append("\n{");
         result.append("\n    DHType   : ");
@@ -186,23 +190,29 @@ int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
 int32_t HidumpHelper::ShowAllTaskInfos(std::string &result)
 {
     DHLOGI("Dump all task infos.");
-    std::unordered_map<std::string, std::shared_ptr<Task>> tasks;
-    TaskBoard::GetInstance().DumpAllTasks(tasks);
+    std::vector<TaskDump> taskInfos {};
+    TaskBoard::GetInstance().DumpAllTasks(taskInfos);
 
     result.append("All task infos:");
-    for (auto task : tasks) {
+    if (taskInfos.empty()) {
+        return DH_FWK_SUCCESS;
+    }
+
+    for (auto taskInfo : taskInfos) {
         result.append("\n{");
+        result.append("\n    TaskId   : ");
+        result.append(taskInfo.id);
         result.append("\n    TaskType   : ");
-        result.append(g_mapTaskType[task.second->GetTaskType()]);
+        result.append(g_mapTaskType[taskInfo.taskType]);
         result.append("\n    DHType     : ");
-        result.append(g_mapDhTypeName[task.second->GetDhType()]);
+        result.append(g_mapDhTypeName[taskInfo.taskParm.dhType]);
         result.append("\n    DHId       : ");
-        result.append(GetAnonyString(task.second->GetDhId()));
+        result.append(GetAnonyString(taskInfo.taskParm.dhId));
         result.append("\n    TaskState  : ");
-        result.append(g_mapTaskState[task.second->GetTaskState()]);
+        result.append(g_mapTaskState[taskInfo.taskState]);
         result.append("\n    TaskStep   : [ ");
-        std::vector<TaskStep> taskStep = task.second->GetTaskSteps();
-        for (auto step : taskStep) {
+        std::vector<TaskStep> taskSteps = taskInfo.taskSteps;
+        for (auto step : taskSteps) {
             result.append(g_mapTaskStep[step]);
             result.append(" ");
         }
@@ -216,24 +226,28 @@ int32_t HidumpHelper::ShowAllTaskInfos(std::string &result)
 int32_t HidumpHelper::ShowAllCapabilityInfos(std::string &result)
 {
     DHLOGI("Dump all capability infos.");
-    CapabilityInfoMap capInfoMap;
-    CapabilityInfoManager::GetInstance()->DumpCapabilityInfos(capInfoMap);
+    std::vector<CapabilityInfo> capInfos;
+    CapabilityInfoManager::GetInstance()->DumpCapabilityInfos(capInfos);
 
     result.append("All capability infos:");
-    for (auto info : capInfoMap) {
+    if (capInfos.empty()) {
+        return DH_FWK_SUCCESS;
+    }
+
+    for (auto info : capInfos) {
         result.append("\n{");
         result.append("\n    DeviceName     : ");
-        result.append(GetAnonyString(info.second->GetDeviceName()));
+        result.append(GetAnonyString(info.GetDeviceName()));
         result.append("\n    DeviceId       : ");
-        result.append(GetAnonyString(info.second->GetDeviceId()));
+        result.append(GetAnonyString(info.GetDeviceId()));
         result.append("\n    DeviceType     : ");
-        result.append(std::to_string(info.second->GetDeviceType()));
+        result.append(std::to_string(info.GetDeviceType()));
         result.append("\n    DHType         : ");
-        result.append(g_mapDhTypeName[info.second->GetDHType()]);
+        result.append(g_mapDhTypeName[info.GetDHType()]);
         result.append("\n    DHId           : ");
-        result.append(GetAnonyString(info.second->GetDHId()));
+        result.append(GetAnonyString(info.GetDHId()));
         result.append("\n    DHAttrs        :\n");
-        result.append(info.second->GetDHAttrs());
+        result.append(info.GetDHAttrs());
         result.append("\n},");
     }
     result.replace(result.size() - 1, 1, "\n");

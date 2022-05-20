@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,7 @@
 #ifndef OHOS_DISTRIBUTED_ENABLED_COMPS_DUMP_H
 #define OHOS_DISTRIBUTED_ENABLED_COMPS_DUMP_H
 #include <cstdint>
+#include <mutex>
 #include <set>
 #include <string>
 
@@ -25,21 +26,25 @@
 namespace OHOS {
 namespace DistributedHardware {
 struct HidumpCompInfo {
+    std::string deviceId_;
     std::string dhId_;
     DHType dhType_;
 
+    HidumpCompInfo(std::string deviceId, DHType dhType, std::string dhId) :
+        deviceId_(deviceId), dhId_(dhId), dhType_(dhType) {}
+
     bool operator < (const HidumpCompInfo &other) const
     {
-        return (((this->dhType_ == other.dhType_) && (this->dhId_ < other.dhId_)) ||
-            (this->dhType_ < other.dhType_));
+        return (((this->deviceId_ == other.deviceId_) && (this->dhId_ < other.dhId_)) ||
+            (this->deviceId_ < other.deviceId_));
     }
 };
 
 class EnabledCompsDump {
 DECLARE_SINGLE_INSTANCE_BASE(EnabledCompsDump);
 public:
-    void DumpEnabledComp(const DHType dhType, const std::string &dhId);
-    void DumpDisabledComp(const DHType dhType, const std::string &dhId);
+    void DumpEnabledComp(const std::string &uuid, const DHType dhType, const std::string &dhId);
+    void DumpDisabledComp(const std::string &uuid, const DHType dhType, const std::string &dhId);
 
     void Dump(std::set<HidumpCompInfo> &compInfoSet);
 
@@ -48,6 +53,7 @@ private:
     ~EnabledCompsDump() = default;
 
 private:
+    std::mutex compInfosMutex_;
     std::set<HidumpCompInfo> compInfoSet_;
 };
 } // namespace DistributedHardware

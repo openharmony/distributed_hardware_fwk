@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2021-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -86,9 +86,21 @@ void TaskBoard::RemoveTaskInner(std::string taskId)
     tasks_.erase(taskId);
 }
 
-void TaskBoard::DumpAllTasks(std::unordered_map<std::string, std::shared_ptr<Task>> &tasks)
+void TaskBoard::DumpAllTasks(std::vector<TaskDump> &taskInfos)
 {
-    tasks = tasks_;
+    std::lock_guard<std::mutex> lock(tasksMtx_);
+    for (auto t : tasks_) {
+        TaskDump taskInfo = {
+            .id = t.second->GetId(),
+            .taskType = t.second->GetTaskType(),
+            .taskParm.networkId = t.second->GetNetworkId(),
+            .taskParm.uuid = t.second->GetUUID(),
+            .taskParm.dhId = t.second->GetDhId(),
+            .taskParm.dhType = t.second->GetDhType(),
+            .taskSteps = t.second->GetTaskSteps()
+        };
+        taskInfos.emplace_back(taskInfo);
+    }
 }
 } // namespace DistributedHardware
 } // namespace OHOS

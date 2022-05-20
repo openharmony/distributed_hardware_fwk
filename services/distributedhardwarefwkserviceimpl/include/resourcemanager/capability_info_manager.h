@@ -93,7 +93,7 @@ public:
     /* EventBus async processing callback */
     void OnEvent(CapabilityInfoEvent &e) override;
 
-    void DumpCapabilityInfos(CapabilityInfoMap &capInfoMap);
+    void DumpCapabilityInfos(std::vector<CapabilityInfo> &capInfos);
 
 private:
     CapabilityInfoManager();

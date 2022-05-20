@@ -26,7 +26,7 @@
 namespace OHOS {
 namespace DistributedHardware {
 enum class HidumpFlag {
-    UNKNOW = 0,
+    UNKNOWN = 0,
     GET_HELP,
     GET_LOADED_COMP_LIST,
     GET_ENABLED_COMP_LIST,

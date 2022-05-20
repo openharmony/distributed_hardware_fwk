@@ -14,26 +14,25 @@
  */
 
 #include "enabled_comps_dump.h"
+#include "dh_utils_tool.h"
 
 namespace OHOS {
 namespace DistributedHardware {
 IMPLEMENT_SINGLE_INSTANCE(EnabledCompsDump);
 
-void EnabledCompsDump::DumpEnabledComp(const DHType dhType, const std::string &dhId)
+void EnabledCompsDump::DumpEnabledComp(const std::string &uuid, const DHType dhType, const std::string &dhId)
 {
-    HidumpCompInfo info = {
-        .dhId_ = dhId,
-        .dhType_ = dhType,
-    };
+    HidumpCompInfo info (GetDeviceIdByUUID(uuid), dhType, dhId);
+
+    std::lock_guard<std::mutex> lock(compInfosMutex_);
     compInfoSet_.emplace(info);
 }
 
-void EnabledCompsDump::DumpDisabledComp(const DHType dhType, const std::string &dhId)
+void EnabledCompsDump::DumpDisabledComp(const std::string &uuid, const DHType dhType, const std::string &dhId)
 {
-    HidumpCompInfo info = {
-        .dhId_ = dhId,
-        .dhType_ = dhType,
-    };
+    HidumpCompInfo info (GetDeviceIdByUUID(uuid), dhType, dhId);
+
+    std::lock_guard<std::mutex> lock(compInfosMutex_);
     auto it = compInfoSet_.find(info);
     if (it != compInfoSet_.end()) {
         compInfoSet_.erase(it);
@@ -42,6 +41,7 @@ void EnabledCompsDump::DumpDisabledComp(const DHType dhType, const std::string &
 
 void EnabledCompsDump::Dump(std::set<HidumpCompInfo> &compInfoSet)
 {
+    std::lock_guard<std::mutex> lock(compInfosMutex_);
     compInfoSet = compInfoSet_;
 }
 } // namespace DistributedHardware
