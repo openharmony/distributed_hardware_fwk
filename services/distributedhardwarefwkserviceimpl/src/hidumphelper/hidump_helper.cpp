@@ -144,21 +144,25 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
 
     result.append("Local loaded components:\n{");
     result.append("\n    Source     : [");
-    for (auto compSource : loadedCompSource) {
-        result.append(" ");
-        result.append(g_mapDhTypeName[compSource]);
-        result.append(",");
+    if (!loadedCompSource.empty()) {
+        for (auto compSource : loadedCompSource) {
+            result.append(" ");
+            result.append(g_mapDhTypeName[compSource]);
+            result.append(",");
+        }
+        result.replace(result.size() - 1, 1, " ");
     }
-    result.replace(result.size() - 1, 1, " ");
     result.append("]");
 
     result.append("\n    Sink       : [");
-    for (auto compSink : loadedCompSink) {
-        result.append(" ");
-        result.append(g_mapDhTypeName[compSink]);
-        result.append(",");
+    if (!loadedCompSource.empty()) {
+        for (auto compSink : loadedCompSink) {
+            result.append(" ");
+            result.append(g_mapDhTypeName[compSink]);
+            result.append(",");
+        }
+        result.replace(result.size() - 1, 1, " ");
     }
-    result.replace(result.size() - 1, 1, " ");
     result.append("]");
     result.append("\n}\n");
     return DH_FWK_SUCCESS;
@@ -177,6 +181,8 @@ int32_t HidumpHelper::ShowAllEnabledComps(std::string &result)
 
     for (auto info : compInfoSet) {
         result.append("\n{");
+        result.append("\n    DeviceId : ");
+        result.append(GetAnonyString(info.deviceId_));
         result.append("\n    DHType   : ");
         result.append(g_mapDhTypeName[info.dhType_]);
         result.append("\n    DHId     : ");
@@ -200,7 +206,7 @@ int32_t HidumpHelper::ShowAllTaskInfos(std::string &result)
 
     for (auto taskInfo : taskInfos) {
         result.append("\n{");
-        result.append("\n    TaskId   : ");
+        result.append("\n    TaskId     : ");
         result.append(taskInfo.id);
         result.append("\n    TaskType   : ");
         result.append(g_mapTaskType[taskInfo.taskType]);
@@ -229,7 +235,7 @@ int32_t HidumpHelper::ShowAllCapabilityInfos(std::string &result)
     std::vector<CapabilityInfo> capInfos;
     CapabilityInfoManager::GetInstance()->DumpCapabilityInfos(capInfos);
 
-    result.append("All capability infos:");
+    result.append("All capability info of online components :");
     if (capInfos.empty()) {
         return DH_FWK_SUCCESS;
     }
@@ -267,7 +273,7 @@ int32_t HidumpHelper::ShowHelp(std::string &result)
     result.append(" -t    ");
     result.append(": Show all tasks\n");
     result.append(" -c    ");
-    result.append(": Show all capability infos\n\n");
+    result.append(": Show all Capability info of online components\n\n");
 
     return DH_FWK_SUCCESS;
 }
