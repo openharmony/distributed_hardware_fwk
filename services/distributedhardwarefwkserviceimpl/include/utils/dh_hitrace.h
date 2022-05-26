@@ -28,3 +28,4 @@ const std::string DH_FWK_COMPONENT_ENABLE_START = "DH_FWK_COMPONENT_ENABLE_START
 const std::string DH_FWK_COMPONENT_DISABLE_START = "DH_FWK_COMPONENT_DISABLE_START";
 } // namespace DistributedHardware
 } // namespace OHOS
+#endif
