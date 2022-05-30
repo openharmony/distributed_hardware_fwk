@@ -253,7 +253,6 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
 
     StartTrace(DHFWK_HITRACE_LABEL, DH_FWK_COMPONENT_ENABLE_START);
     auto result = compEnable->Enable(networkId, dhId, param, find->second);
-
     if (result != DH_FWK_SUCCESS) {
         for (int32_t retryCount = 0; retryCount < ENABLE_RETRY_MAX_TIMES; retryCount++) {
             if (!DHContext::GetInstance().IsDeviceOnline(uuid)) {
@@ -290,7 +289,6 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
 
     StartTrace(DHFWK_HITRACE_LABEL, DH_FWK_COMPONENT_DISABLE_START);
     auto result = compDisable->Disable(networkId, dhId, find->second);
-
     if (result != DH_FWK_SUCCESS) {
         for (int32_t retryCount = 0; retryCount < DISABLE_RETRY_MAX_TIMES; retryCount++) {
             if (DHContext::GetInstance().IsDeviceOnline(uuid)) {
