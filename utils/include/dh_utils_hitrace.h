@@ -18,16 +18,17 @@
 
 #include <string>
 
+#include "device_type.h"
 #include "hitrace_meter.h"
 
 namespace OHOS {
 namespace DistributedHardware {
 constexpr uint64_t DHFWK_HITRACE_LABEL = HITRACE_TAG_DISTRIBUTED_HARDWARE_FWK;
 
-const std::string DH_FWK_COMPONENT_ENABLE_START = "DH_FWK_COMPONENT_ENABLE_START";
-const std::string DH_FWK_COMPONENT_DISABLE_START = "DH_FWK_COMPONENT_DISABLE_START";
-const std::string DH_FWK_COMPONENT_LOAD_START = "DH_FWK_COMPONENT_LOAD_START";
-const std::string DH_FWK_COMPONENT_RELEASE_START = "DH_FWK_COMPONENT_RELEASE_START";
+void CompEnableTraceStart(const DHType dhType);
+void CompDisableTraceStart(const DHType dhType);
+void DHTraceStart(const std::string &msg);
+void TraceEnd();
 } // namespace DistributedHardware
 } // namespace OHOS
 #endif
