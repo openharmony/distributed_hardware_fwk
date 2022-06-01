@@ -22,7 +22,7 @@
 #include "nlohmann/json.hpp"
 
 #include "constants.h"
-#include "dh_hitrace.h"
+#include "dh_utils_hitrace.h"
 #include "distributed_hardware_log.h"
 #include "hidump_helper.h"
 
