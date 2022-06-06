@@ -28,7 +28,7 @@ constexpr uint64_t DHFWK_HITRACE_LABEL = HITRACE_TAG_DISTRIBUTED_HARDWARE_FWK;
 void CompEnableTraceStart(const DHType dhType);
 void CompDisableTraceStart(const DHType dhType);
 void DHTraceStart(const std::string &msg);
-void TraceEnd();
+void DHTraceEnd();
 } // namespace DistributedHardware
 } // namespace OHOS
 #endif

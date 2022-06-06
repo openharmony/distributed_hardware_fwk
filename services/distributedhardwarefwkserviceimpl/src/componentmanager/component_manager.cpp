@@ -56,6 +56,7 @@ ComponentManager::~ComponentManager()
 int32_t ComponentManager::Init()
 {
     DHLOGI("start.");
+    DHTraceStart("COMPONENT_INIT_START");
     if (!InitCompSource()) {
         DHLOGE("InitCompSource failed.");
         return ERR_DH_FWK_COMPONENT_INIT_SOURCE_FAILED;
@@ -77,7 +78,7 @@ int32_t ComponentManager::Init()
     }
 
     DHLOGI("Init component success");
-
+    DHTraceEnd();
     return DH_FWK_SUCCESS;
 }
 
@@ -261,7 +262,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             }
             if (compEnable->Enable(networkId, dhId, param, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("enable success, retryCount = %d", retryCount);
-                TraceEnd();
+                DHTraceEnd();
                 EnabledCompsDump::GetInstance().DumpEnabledComp(uuid, dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
@@ -271,8 +272,8 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
     }
     DHLOGI("enable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
+    DHTraceEnd();
 
-    TraceEnd();
     EnabledCompsDump::GetInstance().DumpEnabledComp(uuid, dhType, dhId);
     return result;
 }
@@ -298,7 +299,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
             if (compDisable->Disable(networkId, dhId, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("disable success, retryCount = %d", retryCount);
                 EnabledCompsDump::GetInstance().DumpDisabledComp(uuid, dhType, dhId);
-                TraceEnd();
+                DHTraceEnd();
                 return DH_FWK_SUCCESS;
             }
             DHLOGE("disable failed, retryCount = %d", retryCount);
@@ -309,7 +310,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
         GetAnonyString(dhId).c_str());
 
     EnabledCompsDump::GetInstance().DumpDisabledComp(uuid, dhType, dhId);
-    TraceEnd();
+    DHTraceEnd();
     return result;
 }
 

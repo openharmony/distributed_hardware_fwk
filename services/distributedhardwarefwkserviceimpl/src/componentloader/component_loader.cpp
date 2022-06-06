@@ -68,7 +68,7 @@ int32_t ComponentLoader::Init()
 {
     DHTraceStart("COMPONENT_LOAD_START");
     int32_t ret = ParseConfig();
-    TraceEnd();
+    DHTraceEnd();
 
     return ret;
 }
@@ -284,7 +284,7 @@ int32_t ComponentLoader::UnInit()
         ret += ReleaseSink(iter->first);
     }
     compHandlerMap_.clear();
-    TraceEnd();
+    DHTraceEnd();
     return ret;
 }
 

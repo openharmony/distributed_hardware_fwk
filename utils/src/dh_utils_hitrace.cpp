@@ -44,7 +44,7 @@ void DHTraceStart(const std::string &msg)
     StartTrace(DHFWK_HITRACE_LABEL, msg);
 }
 
-void TraceEnd()
+void DHTraceEnd()
 {
     FinishTrace(DHFWK_HITRACE_LABEL);
 }
