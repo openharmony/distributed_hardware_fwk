@@ -24,7 +24,7 @@
     "rom": "128K",
     "ram": "6M",
     "hisysevent_config": [
-      "//foundation/distributedhardware/distributedhardwarefwk/hisysevent.yaml"
+      "//foundation/distributedhardware/distributed_hardware_fwk/hisysevent.yaml"
     ],
     "deps": {
       "components": [
