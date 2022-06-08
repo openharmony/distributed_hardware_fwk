@@ -24,7 +24,7 @@ void DHCompMgrTraceStart(const std::string &anonyNetworkId, const std::string &a
     StartTrace(DHFWK_HITRACE_LABEL, anonyNetworkId + "_" + anonyDHId + "_" + msg);
 }
 
-void DHQeryTraceStart(const DHType dhType)
+void DHQueryTraceStart(const DHType dhType)
 {
     std::string dhTypeStr = "UNKNOWN";
     auto it = DHTypeStrMap.find(dhType);

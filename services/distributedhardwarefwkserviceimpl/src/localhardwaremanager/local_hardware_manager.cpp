@@ -50,7 +50,7 @@ void LocalHardwareManager::Init()
             continue;
         }
 
-        DHQeryTraceStart(dhType);
+        DHQueryTraceStart(dhType);
         QueryLocalHardware(dhType, hardwareHandler);
         DHTraceEnd();
         if (!hardwareHandler->IsSupportPlugin()) {

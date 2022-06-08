@@ -33,7 +33,7 @@ const std::string ENABLE_START = "ENABLE_START";
 const std::string DISABLE_START = "DISABLE_START";
 
 void DHCompMgrTraceStart(const std::string &anonyNetworkId, const std::string &anonyDHId, const std::string &msg);
-void DHQeryTraceStart(const DHType dhType);
+void DHQueryTraceStart(const DHType dhType);
 void DHTraceStart(const std::string &msg);
 void DHTraceEnd();
 } // namespace DistributedHardware

@@ -268,7 +268,6 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             if (compEnable->Enable(networkId, dhId, param, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("enable success, retryCount = %d", retryCount);
                 DHTraceEnd();
-                EnabledCompsDump::GetInstance().DumpEnabledComp(uuid, dhType, dhId);
                 EnabledCompsDump::GetInstance().DumpEnabledComp(networkId, dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
@@ -279,9 +278,8 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
     DHLOGI("enable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
     DHTraceEnd();
-
-    EnabledCompsDump::GetInstance().DumpEnabledComp(uuid, dhType, dhId);
     EnabledCompsDump::GetInstance().DumpEnabledComp(networkId, dhType, dhId);
+
     return result;
 }
 
@@ -305,7 +303,6 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
             }
             if (compDisable->Disable(networkId, dhId, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("disable success, retryCount = %d", retryCount);
-                EnabledCompsDump::GetInstance().DumpDisabledComp(uuid, dhType, dhId);
                 DHTraceEnd();
                 EnabledCompsDump::GetInstance().DumpDisabledComp(networkId, dhType, dhId);
                 return DH_FWK_SUCCESS;
@@ -316,10 +313,9 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
     }
     DHLOGI("disable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-
-    EnabledCompsDump::GetInstance().DumpDisabledComp(uuid, dhType, dhId);
     DHTraceEnd();
     EnabledCompsDump::GetInstance().DumpDisabledComp(networkId, dhType, dhId);
+
     return result;
 }
 
