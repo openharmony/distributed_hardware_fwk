@@ -51,8 +51,8 @@ ohos_shared_library("distributedhardwareutils") {
     "bundle_framework:appexecfwk_core",
     "dsoftbus_standard:softbus_client",
     "eventhandler:libeventhandler",
-    "hitrace_native:hitrace_meter",
     "hisysevent_native:libhisysevent",
+    "hitrace_native:hitrace_meter",
     "hiviewdfx_hilog_native:libhilog",
   ]
 
