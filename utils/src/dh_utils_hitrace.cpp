@@ -31,7 +31,7 @@ void DHQueryTraceStart(const DHType dhType)
     if (it != DHTypeStrMap.end()) {
         dhTypeStr = it->second;
     }
-    StartTrace(DHFWK_HITRACE_LABEL, dhTypeStr + "_" + QUERY_START);
+    StartTrace(DHFWK_HITRACE_LABEL, dhTypeStr + "_" + DH_QUERY_START);
 }
 
 void DHTraceStart(const std::string &msg)
