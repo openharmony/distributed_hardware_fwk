@@ -268,7 +268,6 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             }
             if (compEnable->Enable(networkId, dhId, param, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("enable success, retryCount = %d", retryCount);
-                DHTraceEnd();
                 EnabledCompsDump::GetInstance().DumpEnabledComp(networkId, dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
