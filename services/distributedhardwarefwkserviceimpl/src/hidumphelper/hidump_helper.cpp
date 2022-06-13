@@ -132,7 +132,7 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
     ComponentLoader::GetInstance().GetLocalDHVersion(dhVersion);
 
     result.append("Local loaded components:");
-    result.append("\nSource:\n");
+    result.append("\nSource:");
     if (!loadedCompSource.empty()) {
         for (auto compSource : loadedCompSource) {
             std::string dhTypeStr = "UNKNOWN";
@@ -145,9 +145,9 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
             if (iter != dhVersion.compVersions.end()) {
                 sourceVersion = iter->second.sourceVersion;
             }
-            result.append("{\n    DHType         : ").append(dhTypeStr);
+            result.append("\n{\n    DHType         : ").append(dhTypeStr);
             result.append("\n    Version        : ").append(sourceVersion);
-            result.append("},");
+            result.append("\n},");
         }
         result.replace(result.size() - 1, 1, "\n");
     }
@@ -165,9 +165,9 @@ int32_t HidumpHelper::ShowAllLoadedComps(std::string &result)
             if (iter != dhVersion.compVersions.end()) {
                 sinkVersion = iter->second.sinkVersion;
             }
-            result.append("{\n    DHType         : ").append(dhTypeStr);
+            result.append("\n{\n    DHType         : ").append(dhTypeStr);
             result.append("\n    Version        : ").append(sinkVersion);
-            result.append("},");
+            result.append("\n},");
         }
         result.replace(result.size() - 1, 1, "\n");
     }
