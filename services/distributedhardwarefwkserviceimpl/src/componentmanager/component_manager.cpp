@@ -25,7 +25,6 @@
 #include "component_loader.h"
 #include "constants.h"
 #include "dh_context.h"
-#include "dh_utils_hitrace.h"
 #include "dh_utils_hisysevent.h"
 #include "dh_utils_tool.h"
 #include "distributed_hardware_errno.h"
@@ -258,14 +257,12 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
         }
     }
 
-    DHCompMgrTraceStart(GetAnonyString(networkId), GetAnonyString(dhId), DH_ENABLE_START);
     auto compEnable = std::make_shared<ComponentEnable>();
     auto result = compEnable->Enable(networkId, dhId, param, find->second);
     if (result != DH_FWK_SUCCESS) {
         for (int32_t retryCount = 0; retryCount < ENABLE_RETRY_MAX_TIMES; retryCount++) {
             if (!DHContext::GetInstance().IsDeviceOnline(uuid)) {
                 DHLOGE("device is already offline, no need try enable, uuid = %s", GetAnonyString(uuid).c_str());
-                DHTraceEnd();
                 return result;
             }
             if (compEnable->Enable(networkId, dhId, param, find->second) == DH_FWK_SUCCESS) {
@@ -276,12 +273,10 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             }
             DHLOGE("enable failed, retryCount = %d", retryCount);
         }
-        DHTraceEnd();
         return result;
     }
     DHLOGI("enable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-    DHTraceEnd();
     EnabledCompsDump::GetInstance().DumpEnabledComp(networkId, dhType, dhId);
 
     return result;
@@ -296,30 +291,25 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
         return ERR_DH_FWK_PARA_INVALID;
     }
 
-    DHCompMgrTraceStart(GetAnonyString(networkId), GetAnonyString(dhId), DH_DISABLE_START);
     auto compDisable = std::make_shared<ComponentDisable>();
     auto result = compDisable->Disable(networkId, dhId, find->second);
     if (result != DH_FWK_SUCCESS) {
         for (int32_t retryCount = 0; retryCount < DISABLE_RETRY_MAX_TIMES; retryCount++) {
             if (DHContext::GetInstance().IsDeviceOnline(uuid)) {
                 DHLOGE("device is already online, no need try disable, uuid = %s", GetAnonyString(uuid).c_str());
-                DHTraceEnd();
                 return result;
             }
             if (compDisable->Disable(networkId, dhId, find->second) == DH_FWK_SUCCESS) {
                 DHLOGE("disable success, retryCount = %d", retryCount);
-                DHTraceEnd();
                 EnabledCompsDump::GetInstance().DumpDisabledComp(networkId, dhType, dhId);
                 return DH_FWK_SUCCESS;
             }
             DHLOGE("disable failed, retryCount = %d", retryCount);
         }
-        DHTraceEnd();
         return result;
     }
     DHLOGI("disable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
-    DHTraceEnd();
     EnabledCompsDump::GetInstance().DumpDisabledComp(networkId, dhType, dhId);
 
     return result;
