@@ -35,6 +35,7 @@ const std::string DH_QUERY_START = "DH_QUERY_START";
 
 const std::string DH_ENABLE_START = "DH_ENABLE_START";
 const std::string DH_DISABLE_START = "DH_DISABLE_START";
+
 void DHCompMgrTraceStart(const std::string &anonyNetworkId, const std::string &anonyDHId, const std::string &msg);
 void DHQueryTraceStart(const DHType dhType);
 void DHTraceStart(const std::string &msg);
