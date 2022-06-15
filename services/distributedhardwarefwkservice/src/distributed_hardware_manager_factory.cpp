@@ -23,6 +23,7 @@
 #include "constants.h"
 #include "device_manager.h"
 #include "dh_utils_hisysevent.h"
+#include "dh_utils_hitrace.h"
 #include "dh_utils_tool.h"
 #include "distributed_hardware_errno.h"
 #include "distributed_hardware_log.h"
@@ -62,6 +63,7 @@ bool DistributedHardwareManagerFactory::Init()
 void DistributedHardwareManagerFactory::UnInit()
 {
     DHLOGI("start");
+    DHTraceStart(COMPONENT_UNLOAD_START);
     HiSysEventWriteMsg(DHFWK_EXIT_BEGIN, OHOS::HiviewDFX::HiSysEvent::EventType::BEHAVIOR,
         "dhfwk sa exit begin.");
 
@@ -69,6 +71,8 @@ void DistributedHardwareManagerFactory::UnInit()
     distributedHardwareMgrPtr_->Release();
 
     CloseLibrary();
+    DHTraceEnd();
+
     CheckExitSAOrNot();
 }
 

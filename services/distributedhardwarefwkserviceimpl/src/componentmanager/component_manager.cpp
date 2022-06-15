@@ -25,6 +25,7 @@
 #include "component_loader.h"
 #include "constants.h"
 #include "dh_context.h"
+#include "dh_utils_hitrace.h"
 #include "dh_utils_hisysevent.h"
 #include "dh_utils_tool.h"
 #include "distributed_hardware_errno.h"
@@ -56,13 +57,16 @@ ComponentManager::~ComponentManager()
 int32_t ComponentManager::Init()
 {
     DHLOGI("start.");
+    DHTraceStart(COMPONENT_INIT_START);
     if (!InitCompSource()) {
         DHLOGE("InitCompSource failed.");
+        DHTraceEnd();
         return ERR_DH_FWK_COMPONENT_INIT_SOURCE_FAILED;
     }
     if (!InitCompSink()) {
         DHLOGE("InitCompSink failed.");
         compSource_.clear();
+        DHTraceEnd();
         return ERR_DH_FWK_COMPONENT_INIT_SINK_FAILED;
     }
 
@@ -81,7 +85,7 @@ int32_t ComponentManager::Init()
     }
 
     DHLOGI("Init component success");
-
+    DHTraceEnd();
     return DH_FWK_SUCCESS;
 }
 
@@ -253,6 +257,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
             usleep(ENABLE_PARAM_RETRY_TIME);
         }
     }
+
     auto compEnable = std::make_shared<ComponentEnable>();
     auto result = compEnable->Enable(networkId, dhId, param, find->second);
     if (result != DH_FWK_SUCCESS) {
@@ -273,6 +278,7 @@ int32_t ComponentManager::Enable(const std::string &networkId, const std::string
     DHLOGI("enable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
     EnabledCompsDump::GetInstance().DumpEnabledComp(networkId, dhType, dhId);
+
     return result;
 }
 
@@ -284,6 +290,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
         DHLOGE("can not find handler for dhId = %s.", dhId.c_str());
         return ERR_DH_FWK_PARA_INVALID;
     }
+
     auto compDisable = std::make_shared<ComponentDisable>();
     auto result = compDisable->Disable(networkId, dhId, find->second);
     if (result != DH_FWK_SUCCESS) {
@@ -304,6 +311,7 @@ int32_t ComponentManager::Disable(const std::string &networkId, const std::strin
     DHLOGI("disable result is %d, uuid = %s, dhId = %s", result, GetAnonyString(uuid).c_str(),
         GetAnonyString(dhId).c_str());
     EnabledCompsDump::GetInstance().DumpDisabledComp(networkId, dhType, dhId);
+
     return result;
 }
 

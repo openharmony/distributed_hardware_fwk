@@ -21,6 +21,7 @@
 #include "component_loader.h"
 #include "device_type.h"
 #include "dh_context.h"
+#include "dh_utils_hitrace.h"
 #include "distributed_hardware_errno.h"
 #include "plugin_listener_impl.h"
 
@@ -48,7 +49,10 @@ void LocalHardwareManager::Init()
             DHLOGE("Initialize %#X failed", dhType);
             continue;
         }
+
+        DHQueryTraceStart(dhType);
         QueryLocalHardware(dhType, hardwareHandler);
+        DHTraceEnd();
         if (!hardwareHandler->IsSupportPlugin()) {
             DHLOGI("hardwareHandler is not support hot swap plugin, release!");
             ComponentLoader::GetInstance().ReleaseHardwareHandler(dhType);
