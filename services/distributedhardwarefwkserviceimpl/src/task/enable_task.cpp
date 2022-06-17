@@ -17,6 +17,7 @@
 
 #include "anonymous_string.h"
 #include "component_manager.h"
+#include "dh_utils_hitrace.h"
 #include "distributed_hardware_errno.h"
 #include "distributed_hardware_log.h"
 #include "task_board.h"
@@ -58,9 +59,11 @@ void EnableTask::DoTaskInner()
 
 int32_t EnableTask::RegisterHardware()
 {
+    DHCompMgrTraceStart(GetAnonyString(GetNetworkId()), GetAnonyString(GetDhId()), DH_ENABLE_START);
     auto result = ComponentManager::GetInstance().Enable(GetNetworkId(), GetUUID(), GetDhId(), GetDhType());
     DHLOGI("enable task %s, id = %s, uuid = %s, dhId = %s", (result == DH_FWK_SUCCESS) ? "success" : "failed",
         GetId().c_str(), GetAnonyString(GetUUID()).c_str(), GetAnonyString(GetDhId()).c_str());
+    DHTraceEnd();
     return result;
 }
 } // namespace DistributedHardware

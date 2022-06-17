@@ -22,6 +22,7 @@
 #include "nlohmann/json.hpp"
 
 #include "constants.h"
+#include "dh_utils_hitrace.h"
 #include "distributed_hardware_log.h"
 #include "dh_utils_hisysevent.h"
 #include "hidump_helper.h"
@@ -66,7 +67,11 @@ std::map<std::string, DHType> g_mapDhTypeName = {
 
 int32_t ComponentLoader::Init()
 {
-    return ParseConfig();
+    DHTraceStart(COMPONENT_LOAD_START);
+    int32_t ret = ParseConfig();
+    DHTraceEnd();
+
+    return ret;
 }
 
 std::vector<DHType> ComponentLoader::GetAllCompTypes()
@@ -273,6 +278,7 @@ int32_t ComponentLoader::ReleaseHandler(void *&handler)
 int32_t ComponentLoader::UnInit()
 {
     DHLOGI("release all handler");
+    DHTraceStart(COMPONENT_RELEASE_START);
     int32_t ret = DH_FWK_SUCCESS;
     for (std::map<DHType, CompHandler>::iterator iter = compHandlerMap_.begin();
         iter != compHandlerMap_.end(); iter++) {
@@ -281,6 +287,7 @@ int32_t ComponentLoader::UnInit()
         ret += ReleaseSink(iter->first);
     }
     compHandlerMap_.clear();
+    DHTraceEnd();
     return ret;
 }
 
