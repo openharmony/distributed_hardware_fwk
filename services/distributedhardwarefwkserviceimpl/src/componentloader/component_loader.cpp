@@ -150,7 +150,7 @@ void *ComponentLoader::GetHandler(const std::string &soName)
     }
     void *pHandler = dlopen(path, RTLD_LAZY | RTLD_NODELETE);
     if (pHandler == nullptr) {
-        DHLOGE("%s handler load failed.", path);
+        DHLOGE("%s handler load failed, failed reason : %s", path, dlerror());
         HiSysEventWriteMsg(DHFWK_INIT_FAIL, OHOS::HiviewDFX::HiSysEvent::EventType::FAULT,
             "dhfwk so open failed, soname : " + soName);
         return nullptr;
@@ -180,7 +180,7 @@ int32_t ComponentLoader::GetHardwareHandler(const DHType dhType, IHardwareHandle
     GetHardwareClass getHardwareClassHandler = (GetHardwareClass)dlsym(compHandlerMap_[dhType].hardwareHandler,
         COMPONENT_LOADER_GET_HARDWARE_HANDLER.c_str());
     if (getHardwareClassHandler == nullptr) {
-        DHLOGE("get getHardwareClassHandler is null.");
+        DHLOGE("get getHardwareClassHandler is null, failed reason : %s", dlerror());
         dlclose(compHandlerMap_[dhType].hardwareHandler);
         compHandlerMap_[dhType].hardwareHandler = nullptr;
         return ERR_DH_FWK_LOADER_HANDLER_IS_NULL;
@@ -199,7 +199,7 @@ int32_t ComponentLoader::GetSource(const DHType dhType, IDistributedHardwareSour
     GetSourceHardwareClass getSourceHardClassHandler = (GetSourceHardwareClass)dlsym(
         compHandlerMap_[dhType].sourceHandler, COMPONENT_LOADER_GET_SOURCE_HANDLER.c_str());
     if (getSourceHardClassHandler == nullptr) {
-        DHLOGE("get getSourceHardClassHandler is null.");
+        DHLOGE("get getSourceHardClassHandler is null, failed reason : %s", dlerror());
         dlclose(compHandlerMap_[dhType].sourceHandler);
         compHandlerMap_[dhType].sourceHandler = nullptr;
         return ERR_DH_FWK_LOADER_HANDLER_IS_NULL;
@@ -218,7 +218,7 @@ int32_t ComponentLoader::GetSink(const DHType dhType, IDistributedHardwareSink *
     GetSinkHardwareClass getSinkHardwareClassHandler =
         (GetSinkHardwareClass)dlsym(compHandlerMap_[dhType].sinkHandler, COMPONENT_LOADER_GET_SINK_HANDLER.c_str());
     if (getSinkHardwareClassHandler == nullptr) {
-        DHLOGE("get getSinkHardwareClassHandler is null.");
+        DHLOGE("get getSinkHardwareClassHandler is null, failed reason : %s", dlerror());
         dlclose(compHandlerMap_[dhType].sinkHandler);
         compHandlerMap_[dhType].sinkHandler = nullptr;
         return ERR_DH_FWK_LOADER_HANDLER_IS_NULL;

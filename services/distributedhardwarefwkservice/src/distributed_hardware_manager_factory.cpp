@@ -174,13 +174,13 @@ int32_t DistributedHardwareManagerFactory::LoadLibrary()
 
     handler_ = dlopen(LIB_NAME, RTLD_NOW | RTLD_NODELETE);
     if (handler_ == nullptr) {
-        DHLOGE("open %s failed.", LIB_NAME);
+        DHLOGE("open %s failed, fail reason : %s", LIB_NAME, dlerror());
         return ERR_DH_FWK_HARDWARE_MANAGER_LIB_IMPL_OPEN_FAILED;
     }
 
     auto getManager = reinterpret_cast<GetMgrFunc>(dlsym(handler_, FUNC_GET_INSTANCE.c_str()));
     if (getManager == nullptr) {
-        DHLOGE("can not find %s.", FUNC_GET_INSTANCE.c_str());
+        DHLOGE("can not find %s, failed reason : %s", FUNC_GET_INSTANCE.c_str(), dlerror());
         CloseLibrary();
         return ERR_DH_FWK_HARDWARE_MANAGER_LIB_IMPL_GET_INSTANCE_FAILED;
     }
