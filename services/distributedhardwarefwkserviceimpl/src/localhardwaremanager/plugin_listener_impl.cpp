@@ -15,8 +15,6 @@
 
 #include "plugin_listener_impl.h"
 
-#include <string>
-
 #include "anonymous_string.h"
 #include "capability_info.h"
 #include "capability_info_manager.h"
