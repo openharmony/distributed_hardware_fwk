@@ -16,6 +16,7 @@
 #ifndef OHOS_DISTRIBUTED_HARDWARE_ANONYMOUS_STRING_H
 #define OHOS_DISTRIBUTED_HARDWARE_ANONYMOUS_STRING_H
 
+#include <cstdint>
 #include <iosfwd>
 
 namespace OHOS {
