@@ -16,6 +16,8 @@
 #ifndef OHOS_DH_HITRACE_H
 #define OHOS_DH_HITRACE_H
 
+#include <cstdint>
+#include <iosfwd>
 #include <string>
 
 #include "device_type.h"

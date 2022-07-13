@@ -15,9 +15,17 @@
 
 #include "plugin_listener_impl.h"
 
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "anonymous_string.h"
+#include "capability_info.h"
 #include "capability_info_manager.h"
 #include "dh_context.h"
 #include "distributed_hardware_errno.h"
+#include "distributed_hardware_log.h"
 
 namespace OHOS {
 namespace DistributedHardware {

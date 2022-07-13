@@ -15,7 +15,7 @@
 
 #include "capability_utils.h"
 
-#include "nlohmann/json.hpp"
+#include <cstddef>
 
 #include "capability_info.h"
 #include "constants.h"

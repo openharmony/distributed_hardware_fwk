@@ -16,8 +16,18 @@
 #include "utils_tool_test.h"
 
 #include <chrono>
+#include <cstdint>
+#include <functional>
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h>
+#include <gtest/hwext/gtest-ext.h>
+#include <gtest/hwext/gtest-tag.h>
+#include <iosfwd>
 #include <set>
+#include <string>
 #include <thread>
+#include <type_traits>
 
 #include "anonymous_string.h"
 #include "dh_utils_tool.h"
