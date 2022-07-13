@@ -128,7 +128,7 @@ int32_t DistributedHardwareManager::SendOffLineEvent(const std::string &networkI
     }
 
     if (uuid.empty()) {
-        DHLOGI("uuid is empty");
+        DHLOGW("uuid is empty");
     }
 
     // when other device restart, the device receives online and offline messages in sequence

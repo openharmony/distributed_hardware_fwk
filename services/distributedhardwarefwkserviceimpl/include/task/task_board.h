@@ -34,7 +34,7 @@ public:
     void AddTask(std::shared_ptr<Task> task);
     void RemoveTask(std::string taskId);
     int32_t WaitForALLTaskFinish();
-    void AddEnabledDevice(const std::string &enabledDeviceKey, const TaskParam &taskParam);
+    void SaveEnabledDevice(const std::string &enabledDeviceKey, const TaskParam &taskParam);
     void RemoveEnabledDevice(const std::string &enabledDeviceKey);
     const std::unordered_map<std::string, TaskParam>& GetEnabledDevice();
 

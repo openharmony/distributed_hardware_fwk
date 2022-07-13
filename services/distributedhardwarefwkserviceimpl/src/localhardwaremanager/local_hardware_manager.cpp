@@ -118,7 +118,7 @@ void LocalHardwareManager::CheckNonExistCapabilityInfo(const std::vector<DHItem>
 {
     DHLOGI("start");
     if (dhType != DHType::INPUT) {
-        DHLOGI("This dhType is not input and no need remove!");
+        DHLOGI("This dhType is not input and no need check!");
         return;
     }
     CapabilityInfoMap allLocalCapabilityInfos;
@@ -127,7 +127,7 @@ void LocalHardwareManager::CheckNonExistCapabilityInfo(const std::vector<DHItem>
         std::shared_ptr<CapabilityInfo> capabilityValue = capabilityInfo.second;
         if (capabilityValue == nullptr) {
             DHLOGE("capabilityInfo value is nullptr, key: %s", capabilityValue->GetAnonymousKey().c_str());
-            return;
+            continue;
         }
         DHLOGI("The key in allLocalCapabilityInfos is %s", capabilityValue->GetAnonymousKey().c_str());
         bool isExist = false;

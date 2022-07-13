@@ -103,10 +103,10 @@ void TaskBoard::DumpAllTasks(std::vector<TaskDump> &taskInfos)
     }
 }
 
-void TaskBoard::AddEnabledDevice(const std::string &enabledDeviceKey, const TaskParam &taskParam)
+void TaskBoard::SaveEnabledDevice(const std::string &enabledDeviceKey, const TaskParam &taskParam)
 {
     std::lock_guard<std::mutex> lock(enabledDevicesMutex_);
-    DHLOGI("AddEnabledDevice key is %s", GetAnonyString(enabledDeviceKey).c_str());
+    DHLOGI("SaveEnabledDevice key is %s", GetAnonyString(enabledDeviceKey).c_str());
     enabledDevices_[enabledDeviceKey] = taskParam;
 }
 

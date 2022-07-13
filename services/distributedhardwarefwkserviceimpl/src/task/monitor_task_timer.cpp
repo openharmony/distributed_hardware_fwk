@@ -41,9 +41,7 @@ MonitorTaskTimer::MonitorTaskTimer()
 
 MonitorTaskTimer::~MonitorTaskTimer()
 {
-    DHLOGI("MonitorTaskTimer destruction start");
-    StopTimer();
-    DHLOGI("MonitorTaskTimer destruction end");
+    DHLOGI("MonitorTaskTimer destruction");
 }
 
 void MonitorTaskTimer::StartTimer()
