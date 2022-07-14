@@ -18,7 +18,6 @@
 
 #include <cstdint>
 #include <gtest/gtest_pred_impl.h>
-#include <iosfwd>
 #include <string>
 
 #include "event.h"

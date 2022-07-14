@@ -17,7 +17,6 @@
 #define OHOS_DISTRIBUTED_HARDWARE_MANAGER_FACTORY_H
 
 #include <cstdint>
-#include <iosfwd>
 #include <mutex>
 #include <unordered_map>
 

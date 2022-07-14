@@ -16,7 +16,6 @@
 #ifndef OHOS_DISTRIBUTED_ENABLED_COMPS_DUMP_H
 #define OHOS_DISTRIBUTED_ENABLED_COMPS_DUMP_H
 
-#include <iosfwd>
 #include <mutex>
 #include <set>
 #include <string>

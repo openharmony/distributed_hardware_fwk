@@ -18,7 +18,6 @@
 
 #include <cstdint>
 #include <string>
-#include <iosfwd>
 #include <memory>
 #include <mutex>
 #include <vector>

@@ -17,7 +17,6 @@
 #define OHOS_DISTRIBUTED_HARDWARE_DHUTILS_TOOL_H
 
 #include <cstdint>
-#include <iosfwd>
 
 #include "device_type.h"
 

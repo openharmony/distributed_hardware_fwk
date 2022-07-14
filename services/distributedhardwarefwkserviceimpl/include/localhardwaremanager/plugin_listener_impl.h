@@ -16,8 +16,6 @@
 #ifndef OHOS_DISTRIBUTED_HARDWARE_PLUGIN_LISTENER_IMPL_H
 #define OHOS_DISTRIBUTED_HARDWARE_PLUGIN_LISTENER_IMPL_H
 
-#include <iosfwd>
-
 #include "device_type.h"
 #include "ihardware_handler.h"
 

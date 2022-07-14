@@ -17,7 +17,6 @@
 #define OHOS_DISTRIBUTED_HARDWARE_CAPABILITY_UTILS_H
 
 #include <cstdint>
-#include <iosfwd>
 #include <memory>
 #include <string>
 

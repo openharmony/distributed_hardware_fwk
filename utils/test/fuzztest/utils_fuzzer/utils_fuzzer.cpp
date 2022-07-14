@@ -17,7 +17,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <iosfwd>
 #include <string>
 
 #include "anonymous_string.h"

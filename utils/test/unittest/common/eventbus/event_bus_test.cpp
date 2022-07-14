@@ -20,7 +20,6 @@
 #include <gtest/gtest-message.h>
 #include <gtest/gtest-test-part.h>
 #include <gtest/hwext/gtest-tag.h>
-#include <type_traits>
 #include <memory>
 #include <new>
 
