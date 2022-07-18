@@ -16,8 +16,11 @@
 #ifndef OHOS_DISTRIBUTED_HARDWARE_EVENT_BUS_H
 #define OHOS_DISTRIBUTED_HARDWARE_EVENT_BUS_H
 
+#include <condition_variable>
 #include <memory>
 #include <set>
+#include <sys/prctl.h>
+#include <thread>
 #include <unordered_map>
 #include <mutex>
 
@@ -46,13 +49,32 @@ public:
     {
         ULOGI("ctor EventBus");
         if (!eventbusHandler_) {
-            auto busRunner = OHOS::AppExecFwk::EventRunner::Create("DHEventbusHandler");
-            eventbusHandler_ = std::make_shared<OHOS::AppExecFwk::EventHandler>(busRunner);
+            eventThread_ = std::thread(&EventBus::StartEvent, this);
+            std::unique_lock<std::mutex> lock(eventMutex_);
+            eventCon_.wait(lock, [this] {
+                return eventbusHandler_ != nullptr;
+            });
         }
     }
+
+    EventBus(const std::string &threadName)
+    {
+        ULOGI("ctor EventBus threadName: %s", threadName.c_str());
+        if (!eventbusHandler_) {
+            eventThread_ = std::thread(&EventBus::StartEventWithName, this, threadName);
+            std::unique_lock<std::mutex> lock(eventMutex_);
+            eventCon_.wait(lock, [this] {
+                return eventbusHandler_ != nullptr;
+            });
+        }
+    }
+
     ~EventBus()
     {
         ULOGI("dtor EventBus");
+        eventbusHandler_->GetEventRunner()->Stop();
+        eventThread_.join();
+        eventbusHandler_ = nullptr;
     }
 
     template<class T>
@@ -201,6 +223,29 @@ private:
         }
     }
 
+    void StartEvent()
+    {
+        auto busRunner = AppExecFwk::EventRunner::Create(false);
+        {
+            std::lock_guard<std::mutex> lock(eventMutex_);
+            eventbusHandler_ = std::make_shared<AppExecFwk::EventHandler>(busRunner);
+        }
+        eventCon_.notify_all();
+        busRunner->Run();
+    }
+
+    void StartEventWithName(const std::string &threadName)
+    {
+        prctl(PR_SET_NAME, threadName.c_str());
+        auto busRunner = AppExecFwk::EventRunner::Create(false);
+        {
+            std::lock_guard<std::mutex> lock(eventMutex_);
+            eventbusHandler_ = std::make_shared<AppExecFwk::EventHandler>(busRunner);
+        }
+        eventCon_.notify_all();
+        busRunner->Run();
+    }
+
 private:
     std::shared_ptr<OHOS::AppExecFwk::EventHandler> eventbusHandler_;
 
@@ -208,6 +253,9 @@ private:
     std::mutex handlerMtx;
     using TypeMap = std::unordered_map<std::string, std::set<std::shared_ptr<EventRegistration>> *>;
     TypeMap handlers;
+    std::thread eventThread_;
+    std::condition_variable eventCon_;
+    std::mutex eventMutex_;
 };
 } // namespace DistributedHardware
 } // namespace OHOS
